@@ -29,6 +29,16 @@ const PicksOfTheDay = require("../Assets/Images/PicksOfTheDay.png");
 const FireIcon = require("../Assets/Images/FireIcon.png");
 const ballIcon = require("../Assets/Images/ballIcon.png");
 const FeaturedIcon = require("../Assets/Images/FeaturedIcon.png");
+const FootballImage = require("../Assets/Images/FootballImage.png");
+const FootballImage1 = require("../Assets/Images/FootballImage1.png");
+const darkRactangle = require("../Assets/Images/darkRactangle.png");
+const FeedIcon = require("../Assets/Images/FeedIcon.png");
+const PodcastsImage = require("../Assets/Images/PodcastsImage.png");
+const podcastProd = require("../Assets/Images/podcastProd.png");
+const darkRactangle1 = require("../Assets/Images/darkRactangle1.png");
+const CrossIcon = require("../Assets/Images/CrossIcon.png");
+const pointsPic = require("../Assets/Images/pointsPic.png");
+const redFilter = require("../Assets/Images/redFilter.png");
 
 export const iconPath = {
   Logo,
@@ -61,5 +71,15 @@ export const iconPath = {
   PicksOfTheDay,
   FireIcon,
   ballIcon,
-  FeaturedIcon
+  FeaturedIcon,
+  FootballImage,
+  FootballImage1,
+  darkRactangle,
+  FeedIcon,
+  PodcastsImage,
+  podcastProd,
+  darkRactangle1,
+  CrossIcon,
+  pointsPic,
+  redFilter
 };

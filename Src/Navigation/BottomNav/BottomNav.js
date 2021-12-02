@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { wp } from '../../Helpers/Responsiveness';
 import HomeStack from '../Stack/HomeStack';
+import PicksStack from '../Stack/PicksStack';
 
 import { iconPath } from '../../Constants/icon';
 import { Colors } from '../../Constants/Colors';
@@ -105,8 +106,8 @@ export default function BottomNav() {
       />
 
       <Tab.Screen
-        name="Settings"
-        component={Screen4}
+        name="PicksStack"
+        component={PicksStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 4, borderRadius: 8, alignItems: "center" }}>

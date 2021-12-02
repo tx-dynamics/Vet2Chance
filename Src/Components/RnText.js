@@ -63,6 +63,8 @@ const styles = {
   h11: {fontSize: wp(2.3)},
   h12: {fontSize: wp(2)},
   h13: {fontSize: wp(1.5)},
+  h14: {fontSize: wp(5.5)},
+  h15: {fontSize: wp(2.75)},
   header: {fontSize: wp(4.5)},
 };
 export default ResponsiveText;

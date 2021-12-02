@@ -6,6 +6,7 @@ import { StatusBar } from 'react-native';
 
 import Splash from '../Screens/Splash'
 import AuthStack from './Stack/AuthStack'
+import OthersStack from './Stack/OthersStack'
 import DrawerStack from './Stack/DrawerStack';
 // // import BottomNav from './BottomNav/BottomNav'
 import Drawer from './Drawer'
@@ -36,6 +37,7 @@ function MainNav(props) {
                     <Stack.Navigator screenOptions={{ headerShown: false }}>
                         <Stack.Screen name="AuthStack" component={AuthStack} />
                         <Stack.Screen name="Drawer" component={Drawer} />
+                        <Stack.Screen name="OthersStack" component={OthersStack} />
                         {/* <Stack.Screen name="DrawerStack" component={DrawerStack} /> */}
                         {/* {isLogin ?
                             <>

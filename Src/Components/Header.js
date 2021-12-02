@@ -10,11 +10,14 @@ import { fonts } from '../Constants/Fonts';
 
 const Header = (props) => {
     return (
-        <View style={{ height: 50, alignItems: "center", flexDirection: "row", justifyContent: "space-between", backgroundColor:Colors.red }}>
+        <View style={{ height: 50, alignItems: "center", flexDirection: "row", justifyContent: "space-between", backgroundColor: Colors.red }}>
+            {props.halfBlack &&
+                <View style={{ backgroundColor: Colors.black, position: "absolute", width: wp(50), right: 0, height: "100%" }} />
+            }
             {props.left &&
                 <Pressable style={{ paddingLeft: wp(4) }} onPress={props.leftPress}>
                     {props.LeftImage ?
-                        <Image source={props.ImageName} style={{ width: props.leftImageWidth ? props.leftImageWidth : wp(6.5), height: props.leftImageHeight ? props.leftImageHeight :  wp(6.5), resizeMode: "contain" }} />
+                        <Image source={props.ImageName} style={{ width: props.leftImageWidth ? props.leftImageWidth : wp(6.5), height: props.leftImageHeight ? props.leftImageHeight : wp(6.5), resizeMode: "contain" }} />
                         :
                         <Fonticon type={props.LeftIconType} name={props.LeftIconName} size={wp(7)} color={Colors.black} />}
                 </Pressable>
