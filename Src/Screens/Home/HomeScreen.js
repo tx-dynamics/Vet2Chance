@@ -13,6 +13,7 @@ import Svg, { Text } from "react-native-svg";
 
 import HotMatchesCard from './HotMatchesCard'
 import HomeHeadings from './HomeHeadings'
+import PodcastCard from './PodcastCard'
 
 const filterData = [
     { id: "1", ImageName: iconPath.NFL, title: "NFL" },
@@ -103,43 +104,24 @@ const HomeScreen = (props) => {
                 </ImageBackground>
 
 
-                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(3) }}>
-                    <HomeHeadings imageName={iconPath.PodcastsImage} textTitle={"Podcasts"}
-                        marginTop={wp(.1)} />
-                    <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
-                </View>
-
-                <View style={[styles.boxWithShadow, {
-                    backgroundColor: Colors.white, borderRadius: 8, paddingVertical: wp(2), marginHorizontal: wp(6), marginTop: wp(2),
-                    paddingLeft: wp(6), paddingRight: wp(3), marginBottom: wp(5)
-                }]}>
-                    <View style={{ flexDirection: "row" }}>
-                        <Image source={iconPath.podcastProd} style={{ width: wp(17), height: wp(17), resizeMode: "contain", borderRadius: 15 }} />
-                        <View style={{ marginLeft: wp(3.5), paddingVertical: wp(2), justifyContent: "space-between" }}>
-                            <ResponsiveText size={"h8"} fontFamily={fonts.Montserrat_Bold} margin={[wp(0), 0, 0, 0]}>{"Podcast Name"}</ResponsiveText>
-                            <ResponsiveText size={"h9"} margin={[wp(0), 0, 0, 0]}>{"By Name"}</ResponsiveText>
-                        </View>
-                        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                            <ResponsiveText size={"h9"} color={'#9F9F9F'} margin={[0, 0, 0, 12]}>{"41s"}</ResponsiveText>
-                        </View>
+                <Pressable onPress={() => props.navigation.navigate("Podcasts")}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(3) }}>
+                        <HomeHeadings imageName={iconPath.PodcastsImage} textTitle={"Podcasts"}
+                            marginTop={wp(.1)} />
+                        <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
                     </View>
 
-                    <View style={{ backgroundColor: "#C4C4C4", height: 1, width: "100%", marginVertical: wp(1) }} />
+                    <View style={[styles.boxWithShadow, {
+                        backgroundColor: Colors.white, borderRadius: 8, paddingVertical: wp(2), marginHorizontal: wp(6), marginTop: wp(2),
+                        paddingLeft: wp(6), paddingRight: wp(3), marginBottom: wp(5)
+                    }]}>
 
-                    <View style={{ flexDirection: "row" }}>
-                        <Image source={iconPath.podcastProd} style={{ width: wp(17), height: wp(17), resizeMode: "contain", borderRadius: 15 }} />
-                        <View style={{ marginLeft: wp(3.5), paddingVertical: wp(2), justifyContent: "space-between" }}>
-                            <ResponsiveText size={"h8"} fontFamily={fonts.Montserrat_Bold} margin={[wp(0), 0, 0, 0]}>{"Podcast Name"}</ResponsiveText>
-                            <ResponsiveText size={"h9"} margin={[wp(0), 0, 0, 0]}>{"By Name"}</ResponsiveText>
-                        </View>
-                        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                            <ResponsiveText size={"h9"} color={'#9F9F9F'} margin={[0, 0, 0, 12]}>{"41s"}</ResponsiveText>
-                        </View>
+                        <PodcastCard />
+                        <View style={{ backgroundColor: "#C4C4C4", height: 1, width: "100%", marginVertical: wp(1) }} />
+                        <PodcastCard />
                     </View>
+                </Pressable>
 
-
-
-                </View>
 
 
 

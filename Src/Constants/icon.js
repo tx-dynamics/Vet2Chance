@@ -39,6 +39,7 @@ const darkRactangle1 = require("../Assets/Images/darkRactangle1.png");
 const CrossIcon = require("../Assets/Images/CrossIcon.png");
 const pointsPic = require("../Assets/Images/pointsPic.png");
 const redFilter = require("../Assets/Images/redFilter.png");
+const playPodcast = require("../Assets/Images/playPodcast.png");
 
 export const iconPath = {
   Logo,
@@ -81,5 +82,6 @@ export const iconPath = {
   darkRactangle1,
   CrossIcon,
   pointsPic,
-  redFilter
+  redFilter,
+  playPodcast
 };
