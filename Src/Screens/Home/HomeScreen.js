@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, StyleSheet, Image, ImageBackground, Pressable } from 'react-native'
 
 import Header from '../../Components/Header';
@@ -25,6 +25,10 @@ const filterData = [
 ]
 
 const HomeScreen = (props) => {
+
+    useEffect(() => {
+    }, [])
+
     return (
         <View style={styles.container}>
             <Header midtitle title={"BETMOORSPORTS"}

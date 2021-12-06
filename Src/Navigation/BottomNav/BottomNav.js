@@ -5,6 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { wp } from '../../Helpers/Responsiveness';
 import HomeStack from '../Stack/HomeStack';
 import PicksStack from '../Stack/PicksStack';
+import FeedScreen from '../../Screens/Feed/FeedScreen';
+import EventsMainScreen from '../../Screens/Events/EventsMainScreen';
 
 import { iconPath } from '../../Constants/icon';
 import { Colors } from '../../Constants/Colors';
@@ -127,7 +129,7 @@ export default function BottomNav() {
 
       <Tab.Screen
         name="Profile"
-        component={Screen4}
+        component={EventsMainScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 4, borderRadius: 8, alignItems: "center" }}>
@@ -141,7 +143,7 @@ export default function BottomNav() {
       />
       <Tab.Screen
         name="Profilfe"
-        component={Screen4}
+        component={FeedScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 4, borderRadius: 8, alignItems: "center" }}>

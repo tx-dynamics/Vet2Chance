@@ -40,6 +40,7 @@ const CrossIcon = require("../Assets/Images/CrossIcon.png");
 const pointsPic = require("../Assets/Images/pointsPic.png");
 const redFilter = require("../Assets/Images/redFilter.png");
 const playPodcast = require("../Assets/Images/playPodcast.png");
+const NFL2 = require("../Assets/Images/NFL2.png");
 
 export const iconPath = {
   Logo,
@@ -83,5 +84,6 @@ export const iconPath = {
   CrossIcon,
   pointsPic,
   redFilter,
-  playPodcast
+  playPodcast,
+  NFL2
 };
