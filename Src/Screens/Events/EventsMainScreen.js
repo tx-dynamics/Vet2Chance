@@ -11,7 +11,7 @@ import { iconPath } from '../../Constants/icon';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Fonticon from '../../Constants/FontIcon';
 import HomeHeadings from '../Home/HomeHeadings'
-
+import EventCard from './EventCard'
 
 const filterData = [
     { id: "1", ImageName: iconPath.NFL, title: "NFL" },
@@ -36,9 +36,12 @@ const EventsMainScreen = (props) => {
 
             <View style={[styles.boxWithShadow, {
                 backgroundColor: "#fff", borderRadius: 35, flexDirection: "row",
-                alignItems: "center", marginHorizontal: wp(4), marginTop: wp(6)
+                alignItems: "center", marginHorizontal: wp(4), marginTop: wp(6), height: 46,
             }]}>
-                <TextInput style={{ backgroundColor: "#fff", flex: 1, borderRadius: 35, paddingLeft: wp(4), fontFamily: fonts.Poppins }}
+                <TextInput style={{
+                    backgroundColor: "#fff", flex: 1, borderRadius: 35, paddingLeft: wp(5), fontFamily: fonts.Poppins,
+                    height: 46
+                }}
                     placeholder={"Search"}
                     placeholderTextColor={"#C4C4C4"}>
                 </TextInput>
@@ -48,19 +51,20 @@ const EventsMainScreen = (props) => {
             </View>
 
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(4) }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
                 <HomeHeadings imageName={iconPath.NFL2} textTitle={"NFL"}
                     marginTop={wp(.1)} />
                 <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
             </View>
 
+            <ScrollView >
 
-            <View style={[styles.boxWithShadow, {
-                backgroundColor: "#fff", borderRadius: 8, flexDirection: "row",
-                alignItems: "center", marginHorizontal: wp(4), marginTop: wp(6),
-                paddingVertical:wp(15)
-            }]}>
-            </View>
+                <EventCard />
+                <EventCard />
+                <EventCard />
+                <EventCard />
+                <View style={{paddingBottom:15}}></View>
+            </ScrollView>
 
 
 
