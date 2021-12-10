@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, Image, ImageBackground, Pressable } from 'react-native'
 
 import Header from '../../Components/Header';
@@ -14,6 +14,8 @@ import Fonticon from '../../Constants/FontIcon';
 
 import HotMatchesCard from './HotMatchesCard'
 import HomeHeadings from './HomeHeadings'
+import EventCard from '../Events/EventCard'
+
 
 const filterData = [
     { id: "1", ImageName: iconPath.NFL, title: "NFL" },
@@ -27,6 +29,9 @@ const filterData = [
 const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long"
 
 const HotMatches = (props) => {
+
+    const [selectedTab, setselectedTab] = useState('1')
+
     return (
         <View style={styles.container}>
             <Header midtitle title={"DEN   @   MIA"}
@@ -35,12 +40,73 @@ const HotMatches = (props) => {
                 leftImageWidth={wp(4)} leftImageHeight={wp(4)}
                 leftPress={() => props.navigation.goBack()}
             />
+            <View style={[styles.boxWithShadow, {
+                flexDirection: "row", paddingHorizontal: wp(14), justifyContent: "space-between", alignItems: "center",
+                backgroundColor: "#fff", paddingTop: wp(2.5)
+            }]}>
+                <Pressable onPress={() => setselectedTab('1')}
+                    style={{
+                        borderBottomWidth: selectedTab === '1' ? 3 : 0, borderBottomColor: Colors.red, paddingBottom: wp(1.5),
+                        width: wp(18), alignItems: "center"
+                    }}>
+                    {selectedTab === '1' ?
+                        <ResponsiveText size={"h16"} color={Colors.red} fontFamily={fonts.Montserrat_Bold}>{"PREVIEW"}</ResponsiveText>
+                        :
+                        <ResponsiveText size={"h16"} >{"PREVIEW"}</ResponsiveText>
+
+                    }
+                </Pressable>
+                <Pressable onPress={() => setselectedTab('2')}
+                    style={{
+                        borderBottomWidth: selectedTab === '2' ? 3 : 0, borderBottomColor: Colors.red, paddingBottom: wp(1.5),
+                        width: wp(18), alignItems: "center"
+                    }}>
+                    {selectedTab === '2' ?
+                        <ResponsiveText size={"h16"} color={Colors.red} fontFamily={fonts.Montserrat_Bold}>{"ODDS"}</ResponsiveText>
+                        :
+                        <ResponsiveText size={"h16"}>{"ODDS"}</ResponsiveText>
+                    }
+
+                </Pressable>
+                <Pressable onPress={() => setselectedTab('3')}
+                    style={{
+                        borderBottomWidth: selectedTab === '3' ? 3 : 0, borderBottomColor: Colors.red, paddingBottom: wp(1.5),
+                        width: wp(18), alignItems: "center"
+                    }}>
+                    {selectedTab === '3' ?
+                        <ResponsiveText size={"h16"} color={Colors.red} fontFamily={fonts.Montserrat_Bold}>{"STATS"}</ResponsiveText>
+                        :
+                        <ResponsiveText size={"h16"} >{"STATS"}</ResponsiveText>
+                    }
+
+                </Pressable>
+
+            </View>
 
             <View style={[styles.boxWithShadow, { backgroundColor: Colors.white, marginTop: wp(5), marginHorizontal: wp(3), paddingVertical: wp(2), paddingHorizontal: wp(5), borderRadius: 8 }]}>
                 <ResponsiveText size={"h7"} >{"Friday 6am on FOX"}</ResponsiveText>
                 <ResponsiveText size={"h7"} >{"Stadium Name\nAddress"}</ResponsiveText>
-
             </View>
+
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
+                <HomeHeadings textTitle={"CONSENSUS ODDS"}
+                    marginLeft={wp(-5)}
+                    marginTop={wp(.1)} />
+                <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
+            </View>
+
+            <EventCard />
+            <EventCard />
+
+
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
+                <HomeHeadings textTitle={"CONSENSUS PICKS"}
+                    marginLeft={wp(-5)}
+                    marginTop={wp(.1)} />
+                <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
+            </View>
+
+
 
         </View>
     )

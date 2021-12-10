@@ -12,7 +12,7 @@ export default function HomeHeadings(props) {
     return (
         <View style={{ flexDirection: "row", paddingLeft: wp(6), marginTop: props.marginTop ?  props.marginTop : wp(6) , alignItems: "center" }}>
             <Image source={props.imageName} style={{ width: wp(4), height: wp(4), resizeMode: "contain" }} />
-            <ResponsiveText size={"h6"} fontFamily={fonts.Montserrat_Bold} color={Colors.red} margin={[wp(0), 0, wp(0), 5]}>{props.textTitle}</ResponsiveText>
+            <ResponsiveText size={"h6"} fontFamily={fonts.Montserrat_Bold} color={Colors.red} margin={[wp(0), 0, wp(0), props.marginLeft? props.marginLeft :  5]}>{props.textTitle}</ResponsiveText>
         </View>
     )
 }

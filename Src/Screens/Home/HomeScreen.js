@@ -38,10 +38,11 @@ const HomeScreen = (props) => {
             <ScrollView style={{}}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: wp(6), paddingHorizontal: wp(5) }}>
                     {filterData.map((item, index) =>
-                        <View style={{ alignItems: "center" }}>
+                        <Pressable onPress={() => props.navigation.navigate("HotMatches")}
+                            style={{ alignItems: "center" }}>
                             <Image source={item.ImageName} style={{ width: wp(10), height: wp(10), resizeMode: "contain" }} />
                             <ResponsiveText size={index === filterData.length - 1 ? "h10" : "h9"} fontFamily={index === filterData.length - 1 ? fonts.Montserrat : fonts.Montserrat_Bold} textAlign={"center"} margin={[index === filterData.length - 1 ? wp(2) : wp(1), 0, wp(0), 0]}>{item.title}</ResponsiveText>
-                        </View>
+                        </Pressable>
                     )}
                 </View>
 
@@ -64,11 +65,11 @@ const HomeScreen = (props) => {
                     </ScrollView>
                 </View>
 
-                <Pressable onPress={() => props.navigation.navigate("HotMatches")}>
+                {/* <Pressable onPress={() => props.navigation.navigate("HotMatches")}>
                     <HomeHeadings imageName={iconPath.FireIcon} textTitle={"HOT MATCHUPS"} />
 
                     <HotMatchesCard />
-                </Pressable>
+                </Pressable> */}
 
                 <HomeHeadings imageName={iconPath.FeaturedIcon} textTitle={"FEATURED"}
                     marginTop={wp(2.5)} />
