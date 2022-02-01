@@ -32,8 +32,8 @@ const DATA = [
 ];
 const DATA1 = [
   { id: "5", ImageName: iconPath.ChatIcon, title: "Chat" },
-  { id: "6", ImageName: iconPath.Leaderboard, title: "Leaderboard" },
-  { id: "7", ImageName: iconPath.BettingIcon, title: "Betting Guide" },
+  // { id: "6", ImageName: iconPath.Leaderboard, title: "Leaderboard" },
+  // { id: "7", ImageName: iconPath.BettingIcon, title: "Betting Guide" },
   { id: "8", ImageName: iconPath.Podcasts, title: "Podcasts" },
   { id: "9", ImageName: iconPath.Logout, title: "Logout" },
 ];

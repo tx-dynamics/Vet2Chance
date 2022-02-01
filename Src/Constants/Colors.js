@@ -8,6 +8,7 @@ export const Colors = {
   TextInputBackgroundColor: '#D0D0D0',
   passwordIconColor: '#323232',
   forgetPassword: '#727272',
+  grey :"#878484"
 };
 
 export const AppTheme = {

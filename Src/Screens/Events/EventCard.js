@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 
 
 import { Colors } from '../../Constants/Colors';
@@ -18,11 +18,30 @@ export default function EventCard(props) {
             alignItems: "center", marginHorizontal: wp(3), marginTop: wp(4),
             paddingVertical: wp(2), paddingHorizontal: wp(3)
         }]}>
-            <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 4 }}>
-                <View style={{ flex: .55 }}>
-                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat_Bold}>{"UPCOMING"}</ResponsiveText>
+            <View style={{ flex: 1, alignItems: "center" }}>
+                <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#878484"}>{"12/02/2022 8:15PM"}</ResponsiveText>
+            </View>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", width: "90%" }}>
+                <View style={{alignItems:"center"}}>
+                    <Image source={iconPath.TeamImage} style={{ height: 70, width: 70 }} resizeMode={"cover"} />
+                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{"Team Name"}</ResponsiveText>
+
                 </View>
-                <View style={{ flex: .15, alignItems: "center" }}>
+                <View style={{ marginTop: 10 , paddingBottom:30}}>
+                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{"Premier League"}</ResponsiveText>
+                    <View style={{marginTop:20}}>
+
+                        <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"} textAlign={"center"}>{"V/S"}</ResponsiveText>
+                    </View>
+
+                </View>
+                <View style={{alignItems:"center"}}>
+                    <Image source={iconPath.TeamImage} style={{ height: 70, width: 70 }} resizeMode={"cover"} />
+                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{"Team Name"}</ResponsiveText>
+
+                </View>
+
+                {/* <View style={{ flex: .15, alignItems: "center" }}>
                     <ResponsiveText size={"h9"} fontFamily={fonts.Montserrat} color={"#878484"}>{"Spread"}</ResponsiveText>
                 </View>
                 <View style={{ flex: .15, alignItems: "center" }}>
@@ -30,12 +49,12 @@ export default function EventCard(props) {
                 </View>
                 <View style={{ flex: .15, alignItems: "center" }}>
                     <ResponsiveText size={"h9"} fontFamily={fonts.Montserrat} color={"#878484"}>{"Money"}</ResponsiveText>
-                </View>
+                </View> */}
             </View>
 
-            <View style={{ backgroundColor: "#DADADA", height: 1, width: "100%", marginBottom: 10 }}></View>
+            {/* <View style={{ backgroundColor: "#DADADA", height: 1, width: "100%", marginBottom: 10 }}></View> */}
 
-            <View style={{ flexDirection: "row", alignItems: "center", }}>
+            {/* <View style={{ flexDirection: "row", alignItems: "center", }}>
                 <View style={{ flex: .55, flexDirection: "row", alignItems: "center" }}>
 
                     <View style={{ backgroundColor: "#950F12", width: wp(6.1), height: wp(5), alignItems: "center", justifyContent: "center", borderRadius: 2 }}>
@@ -96,11 +115,11 @@ export default function EventCard(props) {
                     </View>
                 </View>
             </View>
+ */}
 
+            {/* <View style={{ backgroundColor: "#DADADA", height: 1, width: "100%", marginVertical: 6 }}></View> */}
 
-            <View style={{ backgroundColor: "#DADADA", height: 1, width: "100%", marginVertical: 6 }}></View>
-
-            <View style={{ flexDirection: "row", alignItems: "center", }}>
+            {/* <View style={{ flexDirection: "row", alignItems: "center", }}>
                 <View style={{ flex: .55 }}>
                 <ResponsiveText size={"h10"} fontFamily={fonts.Montserrat} color={"#878484"}>{"Fri 7am - FOX"}</ResponsiveText>
                 </View>
@@ -113,7 +132,7 @@ export default function EventCard(props) {
                 <View style={{ flex: .15, alignItems: "center" }}>
                     <ResponsiveText size={"h10"} fontFamily={fonts.Montserrat} color={"#878484"}>{"100% BAL"}</ResponsiveText>
                 </View>
-            </View>
+            </View> */}
 
 
 

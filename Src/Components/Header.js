@@ -27,13 +27,21 @@ const Header = (props) => {
                     <Image source={iconPath.Logo} style={{ width: props.imageWidth ? props.imageWidth : wp(15), height: props.imageHeight ? props.imageHeight : wp(15), resizeMode: "contain" }} />
                 </View>}
             {props.midtitle &&
-                <View style={{ position: "absolute", width: "100%", alignItems: "center" }}>
+                <View style={{  flex:1, marginStart: wp(14)}}>
                     <ResponsiveText color={"#fff"} size="header" fontFamily={fonts.Montserrat_Bold}>{props.title}</ResponsiveText>
                 </View>}
             {props.right &&
                 <Pressable onPress={props.RightPress}
                     style={{ paddingRight: wp(4) }}>
                     <Fonticon type={props.RightIconType} name={props.RightIconName} size={wp(6.7)} color={Colors.black} />
+                </Pressable>
+            }
+               {props.search &&
+                <Pressable style={{ paddingRight: wp(4) }} onPress={props.searchPress}>
+                    {props.SearchImage ?
+                        <Image source={props.SearchImageName} style={{ width: props.searchImageWidth ? props.searchImageWidth : wp(6.5), height: props.searchImageHeight ? props.searchImageHeight : wp(6.5), resizeMode: "contain" }} />
+                        :
+                        <Fonticon type={props.LeftIconType} name={props.LeftIconName} size={wp(7)} color={Colors.black} />}
                 </Pressable>
             }
         </View>

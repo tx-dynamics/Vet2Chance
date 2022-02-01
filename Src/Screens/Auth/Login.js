@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, StatusBar } from 'react-native'
+import { View, Text, StyleSheet, Image, StatusBar , ScrollView} from 'react-native'
 import ResponsiveText from '../../Components/RnText';
 import { fonts } from '../../Constants/Fonts';
 import { iconPath } from '../../Constants/icon';
@@ -11,7 +11,7 @@ import { Colors } from '../../Constants/Colors';
 
 const Login = (props) => {
     return (
-        <View style={styles.container}>
+        <ScrollView  contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
             <View style={{ paddingHorizontal: wp(7), width: "100%", flex: .79 }}>
                 <Image source={iconPath.Logo} style={{ width: wp(70), height: wp(20), resizeMode: "contain", alignSelf: "center", marginTop: wp(20) }}></Image>
                 <ResponsiveText size="h5" fontFamily={fonts.Montserrat_Bold} textAlign={"center"} margin={[wp(3), 0, wp(6), 0]}>{"Login"}</ResponsiveText>
@@ -66,7 +66,7 @@ const Login = (props) => {
                 <Image source={iconPath.dots} style={{ width: wp(20), height: wp(5), resizeMode: "contain", alignSelf: "center", }}></Image>
             </View>
 
-        </View>
+        </ScrollView>
     )
 }
 export default Login;
@@ -76,4 +76,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#E5E5E5',
         alignItems: "center"
     },
+    scrollContainer:{
+        flexGrow:1
+    }
 })

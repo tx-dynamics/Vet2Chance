@@ -41,6 +41,10 @@ const pointsPic = require("../Assets/Images/pointsPic.png");
 const redFilter = require("../Assets/Images/redFilter.png");
 const playPodcast = require("../Assets/Images/playPodcast.png");
 const NFL2 = require("../Assets/Images/NFL2.png");
+const TeamImage = require("../Assets/Images/TeamImage.png");
+const LeftArrow = require("../Assets/Images/LeftArrow.png");
+const Group = require("../Assets/Images/Group.png");
+const Cross = require("../Assets/Images/Cross.png");
 
 export const iconPath = {
   Logo,
@@ -85,5 +89,9 @@ export const iconPath = {
   pointsPic,
   redFilter,
   playPodcast,
-  NFL2
+  NFL2,
+  TeamImage,
+  LeftArrow,
+  Group,
+  Cross
 };

@@ -36,7 +36,7 @@ const InputField = (props) => {
                     paddingLeft: props.paddingLeft ? props.paddingLeft : 20,
                     backgroundColor: props.backgroundColor ? props.backgroundColor : Colors.white,
                     fontFamily: props.fontFamily ? props.fontFamily : fonts.Montserrat,
-                    fontSize: props.fontSize ? props.fontSize : 16,
+                    fontSize: props.fontSize ? props.fontSize : 18,
                     color: props.color ? props.color : "#000",
                     //  paddingTop:15
                 }}

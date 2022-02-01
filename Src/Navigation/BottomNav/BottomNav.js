@@ -5,7 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { wp } from '../../Helpers/Responsiveness';
 import HomeStack from '../Stack/HomeStack';
 import PicksStack from '../Stack/PicksStack';
-import FeedScreen from '../../Screens/Feed/FeedScreen';
+import FeedStack from '../Stack/FeedStack';
+import Podcasts from '../../Screens/Podcasts/Podcasts';
 import EventsMainScreen from '../../Screens/Events/EventsMainScreen';
 
 import { iconPath } from '../../Constants/icon';
@@ -83,18 +84,18 @@ export default function BottomNav() {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 3, borderRadius: 8, alignItems: "center" }}>
-              <Image source={iconPath.HomeIcon} style={{ width: wp(7), height: wp(7), resizeMode: "contain" }} />
+              <Image source={iconPath.HomeIcon} style={{ width: wp(7), height: wp(7), resizeMode: "contain" , tintColor : focused ? Colors.red : Colors.grey}} />
             </View>
           ),
           tabBarLabel: ({ focused }) => (
-            <ResponsiveText size="h11" fontFamily={fonts.Poppins_Medium} color={focused ? Colors.orange : Colors.black}>{"Home"}</ResponsiveText>
+            <ResponsiveText size="h11" fontFamily={fonts.Poppins_Medium} color={focused ? Colors.red : Colors.grey}>{"Home"}</ResponsiveText>
           )
         }}
       // listeners={({ navigation }) => ({
       //   tabPress: () => { navigation.navigate('HomeStack', { screen: 'MainScreen' }) }
       // })}
       />
-      <Tab.Screen name="BinStack" component={Screen4}
+      {/* <Tab.Screen name="BinStack" component={Screen4}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 3, borderRadius: 8, alignItems: "center", paddingLeft: 4 }}>
@@ -105,19 +106,33 @@ export default function BottomNav() {
             <ResponsiveText size="h11" fontFamily={fonts.Poppins_Medium} color={Colors.black}>{"Odds"}</ResponsiveText>
           )
         }}
+      /> */}
+       <Tab.Screen
+        name="Profile"
+        component={EventsMainScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 4, borderRadius: 8, alignItems: "center" }}>
+              <Image source={iconPath.Events} style={{ width: wp(6.5), height: wp(6.5), resizeMode: "contain", tintColor : focused ? Colors.red : Colors.grey }} />
+            </View>
+          ),
+          tabBarLabel: ({ focused }) => (
+            <ResponsiveText size="h11" fontFamily={fonts.Poppins_Medium} color={focused ? Colors.red : Colors.grey}>{"Events"}</ResponsiveText>
+          )
+        }}
       />
 
       <Tab.Screen
         name="PicksStack"
-        component={PicksStack}
+        component={Podcasts}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 4, borderRadius: 8, alignItems: "center" }}>
-              <Image source={iconPath.Picks} style={{ width: wp(6.5), height: wp(6.5), resizeMode: "contain" }} />
+              <Image source={iconPath.PodcastsImage} style={{ width: wp(6.5), height: wp(6.5), resizeMode: "contain" ,tintColor : focused ? Colors.red : Colors.grey}} />
             </View>
           ),
           tabBarLabel: ({ focused }) => (
-            <ResponsiveText size="h11" fontFamily={fonts.Poppins_Medium} color={Colors.White}>{"Picks"}</ResponsiveText>
+            <ResponsiveText size="h11" fontFamily={fonts.Poppins_Medium} color={focused ? Colors.red : Colors.grey}>{"Podcasts"}</ResponsiveText>
           )
         }}
       // listeners={({ navigation }) => ({
@@ -127,31 +142,18 @@ export default function BottomNav() {
       // })}
       />
 
-      <Tab.Screen
-        name="Profile"
-        component={EventsMainScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 4, borderRadius: 8, alignItems: "center" }}>
-              <Image source={iconPath.Events} style={{ width: wp(6.5), height: wp(6.5), resizeMode: "contain" }} />
-            </View>
-          ),
-          tabBarLabel: ({ focused }) => (
-            <ResponsiveText size="h11" fontFamily={fonts.Poppins_Medium} color={focused ? Colors.black : Colors.black}>{"Events"}</ResponsiveText>
-          )
-        }}
-      />
+     
       <Tab.Screen
         name="Profilfe"
-        component={FeedScreen}
+        component={FeedStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 4, borderRadius: 8, alignItems: "center" }}>
-              <Image source={iconPath.Feed} style={{ width: wp(6.9), height: wp(6.9), resizeMode: "contain" }} />
+              <Image source={iconPath.Feed} style={{ width: wp(6.9), height: wp(6.9), resizeMode: "contain" ,tintColor : focused ? Colors.red : Colors.grey}} />
             </View>
           ),
           tabBarLabel: ({ focused }) => (
-            <ResponsiveText size="h11" fontFamily={fonts.Poppins_Medium} color={focused ? Colors.black : Colors.black}>{"Feed"}</ResponsiveText>
+            <ResponsiveText size="h11" fontFamily={fonts.Poppins_Medium} color={focused ? Colors.red : Colors.grey}>{"Feed"}</ResponsiveText>
           )
         }}
       />
