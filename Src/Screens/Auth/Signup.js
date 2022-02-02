@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Image, StatusBar, Switch, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, StatusBar, Switch, ScrollView, TouchableOpacity } from 'react-native'
 import ResponsiveText from '../../Components/RnText';
 import { fonts } from '../../Constants/Fonts';
 import { iconPath } from '../../Constants/icon';
@@ -12,7 +12,7 @@ import { Colors } from '../../Constants/Colors';
 const Signup = (props) => {
     const [isEnabled, setIsEnabled] = useState(false);
     return (
-        <ScrollView  contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
             <View style={{ paddingHorizontal: wp(7), width: "100%", flex: .79 }}>
                 <Image source={iconPath.Logo} style={{ width: wp(70), height: wp(20), resizeMode: "contain", alignSelf: "center", marginTop: wp(20) }}></Image>
                 <ResponsiveText size="h5" fontFamily={fonts.Montserrat_Bold} textAlign={"center"} margin={[wp(3), 0, wp(6), 0]}>{"Signup"}</ResponsiveText>
@@ -26,11 +26,12 @@ const Signup = (props) => {
                     rightImageHeight={wp(8.5)}
                 />
 
-                <InputField
-                    keyboardType="email-address"
+                    <InputField
+                    // keyboardType="email-address"
                     placeholder={"●●●●●●"}
                     placeholderTextColor={Colors.red}
                     secureText
+                    secureTextEntry={true}
                     RightImage
                     newImage={iconPath.tick}
                     rightImageWidth={wp(8.5)}
@@ -61,7 +62,9 @@ const Signup = (props) => {
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "center", marginTop: wp(8) }}>
                     <ResponsiveText size="h9" textAlign={"center"}>{"Already have an account?"}</ResponsiveText>
-                    <ResponsiveText size="h9" textAlign={"center"} color={Colors.red}>{" Click here to login."}</ResponsiveText>
+                    <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
+                        <ResponsiveText size="h9" textAlign={"center"} color={Colors.red}>{" Click here to login."}</ResponsiveText>
+                    </TouchableOpacity>
                 </View>
 
 
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#E5E5E5',
         alignItems: "center"
     },
-    scrollContainer:{
-        flexGrow:1
+    scrollContainer: {
+        flexGrow: 1
     }
 })

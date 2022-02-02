@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 
 
 import { Colors } from '../../Constants/Colors';
@@ -9,11 +9,15 @@ import { iconPath } from '../../Constants/icon';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Fonticon from '../../Constants/FontIcon';
 import ResponsiveText from '../../Components/RnText';
+import { useNavigation } from '@react-navigation/native'
+
 
 
 export default function EventCard(props) {
+    let navigation = useNavigation()
     return (
-        <View style={[styles.boxWithShadow, {
+        <TouchableOpacity onPress={() => navigation.navigate("HomeStack" , {screen : "MatchesDetails"})}
+        style={[styles.boxWithShadow, {
             backgroundColor: "#fff", borderRadius: 8,
             alignItems: "center", marginHorizontal: wp(3), marginTop: wp(4),
             paddingVertical: wp(2), paddingHorizontal: wp(3)
@@ -136,7 +140,7 @@ export default function EventCard(props) {
 
 
 
-        </View>
+        </TouchableOpacity>
     )
 }
 const styles = StyleSheet.create({

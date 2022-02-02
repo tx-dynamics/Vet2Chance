@@ -45,8 +45,20 @@ const TeamImage = require("../Assets/Images/TeamImage.png");
 const LeftArrow = require("../Assets/Images/LeftArrow.png");
 const Group = require("../Assets/Images/Group.png");
 const Cross = require("../Assets/Images/Cross.png");
+const Star = require("../Assets/Images/Star.png");
+const FilledStar = require("../Assets/Images/FilledStar.png");
+const Play = require("../Assets/Images/Play.png");
+const MusicNext = require("../Assets/Images/MusicNext.png")
+const MusicBack = require("../Assets/Images/MusicBack.png")
+const Live = require("../Assets/Images/Live.png")
 
 export const iconPath = {
+  Live,
+  MusicBack,
+  MusicNext,
+  Play,
+  FilledStar,
+  Star,
   Logo,
   personImage,
   tick,

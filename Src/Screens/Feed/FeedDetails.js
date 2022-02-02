@@ -26,7 +26,7 @@ const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetti
 const FeedScreen = (props) => {
     return (
         <View style={styles.container}>
-            <Header midtitle title={"COLLEGE FOOTBALL"}
+            <Header midtitleCenter title={"COLLEGE FOOTBALL"}
                 left LeftImage ImageName={iconPath.backIcon}
                 leftImageWidth={wp(4)} leftImageHeight={wp(4)}
                 leftPress={() => props.navigation.goBack()}

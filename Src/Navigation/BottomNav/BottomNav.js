@@ -6,7 +6,7 @@ import { wp } from '../../Helpers/Responsiveness';
 import HomeStack from '../Stack/HomeStack';
 import PicksStack from '../Stack/PicksStack';
 import FeedStack from '../Stack/FeedStack';
-import Podcasts from '../../Screens/Podcasts/Podcasts';
+import PodcastsStack from '../Stack/PodcastsStack';
 import EventsMainScreen from '../../Screens/Events/EventsMainScreen';
 
 import { iconPath } from '../../Constants/icon';
@@ -124,7 +124,7 @@ export default function BottomNav() {
 
       <Tab.Screen
         name="PicksStack"
-        component={Podcasts}
+        component={PodcastsStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ backgroundColor: focused ? Colors.orange : "transparent", padding: 4, borderRadius: 8, alignItems: "center" }}>

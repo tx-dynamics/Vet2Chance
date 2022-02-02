@@ -18,7 +18,7 @@ const ResponsiveText = ({
   textAlign,
   cutText,
   alignSelf,
-
+  fontWeight,
   //sizes
   ...props
 }) => {
@@ -36,6 +36,7 @@ const ResponsiveText = ({
         position && {alignSelf: position},
         textAlign && {textAlign: textAlign},
         cutText && {textDecorationLine: 'line-through'},
+        {fontWeight: fontWeight ? fontWeight : "400"},
 
         {color: color ? color : Colors.black },
         {fontFamily: fontFamily ? fontFamily : fonts.Montserrat},

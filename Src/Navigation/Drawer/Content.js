@@ -46,26 +46,32 @@ class Content extends Component {
   }
 
   navigate = (item) => {
-    if (item.id === '1') {
-      // this.props.navigation.navigate("HomeStack")
+    if (item === "1") {
+      this.props.navigation.navigate("HomeStack" , {screen :"HotMatches"})
       // this.props.navigation.navigate("HomeStack")
       // this.props.navigation.navigate('DrawerStack', { screen: 'TicketMenu' });
     }
-    else if (item.id === "2") {
+    else if (item === "2") {
+      this.props.navigation.navigate("HomeStack" , {screen :"HotMatches"})
+
       // this.props.navigation.navigate("BinStack")
       // this.props.navigation.navigate('BinStack', { screen: 'AddBin' });
 
     }
-    else if (item.id === "3") {
+    else if (item === "3") {
+      this.props.navigation.navigate("HomeStack" , {screen :"HotMatches"})
+
       // this.props.navigation.navigate('DrawerStack', { screen: 'Store' });
     }
-    else if (item.id === "4") {
+    else if (item === "4") {
       // this.props.navigation.navigate("RequestBin")
       // DrawerStack
       // this.props.navigation.closeDrawer()
       // this.props.navigation.navigate('DrawerStack', { screen: 'RequestBin' });
     }
-    else if (item.id === "5") {
+    else if (item === "5") {
+      // this.props.navigation.navigate("OthersStack" , {screen :"ChatScreen"})
+
       // this.props.navigation.navigate('DrawerStack', { screen: 'Cart' });
       // this.props.navigation.closeDrawer()
       // this.props.navigation.navigate('DrawerStack', { screen: 'Addperson' });
@@ -74,7 +80,15 @@ class Content extends Component {
       // this.props.navigation.closeDrawer()
       // this.props.navigation.navigate('DrawerStack', { screen: 'MemberShip' });
     }
-    else if (item.id === "7") {
+    else if (item === "8") {
+      this.props.navigation.navigate('Podcasts');
+
+      // this.props.navigation.closeDrawer()
+      // this.props.navigation.navigate('DrawerStack', { screen: 'Orders' });
+    }
+    else if (item === "9") {
+       this.props.navigation.navigate('AuthStack', { screen: 'Login' });
+
       // this.props.navigation.closeDrawer()
       // this.props.navigation.navigate('DrawerStack', { screen: 'Orders' });
     }
@@ -110,20 +124,20 @@ class Content extends Component {
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
               <>
-                <View style={{ flexDirection: "row", alignItems: "center", paddingVertical: wp(6) }}>
+                <TouchableOpacity onPress={() => this.navigate(item.id)} style={{ flexDirection: "row", alignItems: "center", paddingVertical: wp(6) }}>
                   <Image source={item.ImageName} style={{ width: wp(7), height: wp(7), resizeMode: "contain" }} />
                   <ResponsiveText size={"h8"} fontFamily={fonts.Montserrat_Bold} textAlign={"center"} margin={[wp(0), 0, wp(0), wp(3.5)]}>{item.title}</ResponsiveText>
-                </View>
+                </TouchableOpacity>
                 <View style={{ backgroundColor: "#DADADA", height: 1, width: "100%", }} />
               </>
             )} />
         </View>
 
         {DATA1.map((item, index) =>
-          <View style={{ flexDirection: "row", alignItems: "center", paddingVertical: wp(4) }}>
+          <TouchableOpacity onPress={() => this.navigate(item.id)} style={{ flexDirection: "row", alignItems: "center", paddingVertical: wp(4) }}>
             <Image source={item.ImageName} style={{ width: wp(4.5), height: wp(4.5), resizeMode: "contain" }} />
             <ResponsiveText size={"h8"} fontFamily={fonts.Montserrat_Bold} textAlign={"center"} margin={[wp(0), 0, wp(0), wp(5.8)]}>{item.title}</ResponsiveText>
-          </View>
+          </TouchableOpacity>
         )}
 
       </View>

@@ -34,13 +34,12 @@ const HotMatches = (props) => {
 
     return (
         <View style={styles.container}>
-            <Header midtitle title={"DEN   @   MIA"}
-                halfBlack
+            <Header midtitle title={"Live NFL Score"}
                 left LeftImage ImageName={iconPath.backIcon}
                 leftImageWidth={wp(4)} leftImageHeight={wp(4)}
                 leftPress={() => props.navigation.goBack()}
             />
-            <View style={[styles.boxWithShadow, {
+            {/* <View style={[styles.boxWithShadow, {
                 flexDirection: "row", paddingHorizontal: wp(14), justifyContent: "space-between", alignItems: "center",
                 backgroundColor: "#fff", paddingTop: wp(2.5)
             }]}>
@@ -81,30 +80,32 @@ const HotMatches = (props) => {
 
                 </Pressable>
 
-            </View>
+            </View> */}
 
-            <View style={[styles.boxWithShadow, { backgroundColor: Colors.white, marginTop: wp(5), marginHorizontal: wp(3), paddingVertical: wp(2), paddingHorizontal: wp(5), borderRadius: 8 }]}>
+            {/* <View style={[styles.boxWithShadow, { backgroundColor: Colors.white, marginTop: wp(5), marginHorizontal: wp(3), paddingVertical: wp(2), paddingHorizontal: wp(5), borderRadius: 8 }]}>
                 <ResponsiveText size={"h7"} >{"Friday 6am on FOX"}</ResponsiveText>
                 <ResponsiveText size={"h7"} >{"Stadium Name\nAddress"}</ResponsiveText>
-            </View>
+            </View> */}
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
+            {/* <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
                 <HomeHeadings textTitle={"CONSENSUS ODDS"}
                     marginLeft={wp(-5)}
                     marginTop={wp(.1)} />
                 <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
-            </View>
+            </View> */}
 
+            <EventCard />
+            <EventCard />
             <EventCard />
             <EventCard />
 
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
+            {/* <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
                 <HomeHeadings textTitle={"CONSENSUS PICKS"}
                     marginLeft={wp(-5)}
                     marginTop={wp(.1)} />
                 <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
-            </View>
+            </View> */}
 
 
 

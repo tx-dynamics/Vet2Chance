@@ -29,7 +29,7 @@ const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetti
 const FeatureDetails = (props) => {
     return (
         <View style={styles.container}>
-            <Header midtitle title={"NBA"}
+            <Header midtitleCenter title={"NBA"}
                 left LeftImage ImageName={iconPath.backIcon}
                 leftImageWidth={wp(4)} leftImageHeight={wp(4)}
                 leftPress={() => props.navigation.goBack()}

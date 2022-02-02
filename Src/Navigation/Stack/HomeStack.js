@@ -9,6 +9,7 @@ import FeatureDetails from '../../Screens/Home/FeatureDetails'
 import HotMatches from '../../Screens/Home/HotMatches'
 import Podcasts from '../../Screens/Podcasts/Podcasts'
 import PodcastsPlay from '../../Screens/Podcasts/PodcastsPlay'
+import MatchesDetails from '../../Screens/Home/MatchesDetails'
 
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ function HomeStack(props) {
                 <Stack.Screen name="HotMatches" component={HotMatches} />
                 <Stack.Screen name="Podcasts" component={Podcasts} />
                 <Stack.Screen name="PodcastsPlay" component={PodcastsPlay} />
+                <Stack.Screen name="MatchesDetails" component={MatchesDetails} />
             </Stack.Navigator>
 
         </>

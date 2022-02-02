@@ -54,7 +54,7 @@ const EventsMainScreen = (props) => {
                     leftPress={() => props.navigation.goBack()}
 
                     search SearchImage SearchImageName={iconPath.Group}
-                    searchImageWidth={wp(4)} searchImageHeight={wp(4)}
+                    searchImageWidth={wp(5)} searchImageHeight={wp(5)}
                     searchPress={() => setSearchBar(!searchBar)}
                 />
             }

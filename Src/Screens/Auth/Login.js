@@ -26,10 +26,11 @@ const Login = (props) => {
                 />
 
                 <InputField
-                    keyboardType="email-address"
+                    // keyboardType="email-address"
                     placeholder={"●●●●●●"}
                     placeholderTextColor={Colors.red}
                     secureText
+                    secureTextEntry={true}
                     RightImage
                     newImage={iconPath.tick}
                     rightImageWidth={wp(8.5)}
@@ -38,6 +39,7 @@ const Login = (props) => {
                 />
                 <View style={{ paddingHorizontal: wp(22) }}>
                     <Button
+                        onPress={() => props.navigation.navigate("Drawer")}
                         Text={'Login'}
                         marginTop={wp(15)}
                         marginHorizontal={wp(20)}

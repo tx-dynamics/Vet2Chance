@@ -26,6 +26,8 @@ const InputField = (props) => {
                 // style={{fontFamily: fonts.LatoBold}}
                 placeholder={props.placeholder}
                 value={props.value}
+                // secureTextEntry={props.secureTextEntry}
+                secureTextEntry={props.secureTextEntry}
                 // caretHidden={true}
                 // keyboardType="email-address"
                 placeholderTextColor={props.placeholderTextColor ? props.placeholderTextColor : "#00000099"}
