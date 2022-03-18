@@ -7,10 +7,60 @@ import { wp } from '../../Helpers/Responsiveness';
 import InputField from '../../Components/InputField';
 import Button from '../../Components/Button';
 import { Colors } from '../../Constants/Colors';
+import { saveData } from '../../firebase/utility';
+import auth from '@react-native-firebase/auth';
+import Apptext from '../../Components/Apptext';
 
 
 const Signup = (props) => {
+
     const [isEnabled, setIsEnabled] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [mailChk, setMailChk] = useState(false);
+    const [passChk, setPassChk] = useState(false);
+    const [tickChk, setTckChk] = useState(false);
+    const [duplicateEmail, setDuplicateEmail] = useState(false);
+    const [weakPass, setWeakPass] = useState(false);
+    const [badFormat, setBadFormat] = useState(false);
+
+
+    const checkValues = () => {
+        if (email === "" && password === "") {
+            setMailChk(true)
+            setPassChk(true)
+        }
+        else if (email === "") {
+            setMailChk(true)
+        }
+        else if (password === "") {
+            setPassChk(true)
+        }
+        else if(mailChk === true){
+            setMailChk(true)
+        }
+        else {
+            console.log("Sign Up Called")
+            props.navigation.navigate("CompleteProfile", {email, password, isEnabled})
+            // signUp(email, password, isEnabled)
+        }
+    }
+   
+
+    const ValidateEmail = (inputText) => {
+        console.log(inputText)
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (inputText.match(mailformat)) {
+             setMailChk(false)
+            return true;
+        }
+        else {
+            setMailChk(true)
+            return false;
+        }
+    }
+
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
             <View style={{ paddingHorizontal: wp(7), width: "100%", flex: .79 }}>
@@ -24,9 +74,28 @@ const Signup = (props) => {
                     newImage={iconPath.tick}
                     rightImageWidth={wp(8.5)}
                     rightImageHeight={wp(8.5)}
+                    onChangeText={(txt) => {
+                        setEmail(txt)
+                        setMailChk(false)
+                        ValidateEmail(txt)
+
+                    }}
                 />
 
-                    <InputField
+                {mailChk ? <View style={{ marginHorizontal: wp(5), marginTop: wp(2) }}>
+                    <Apptext style={{ fontSize: 10, color: "red" }}>
+                        Please Enter Valid Email</Apptext>
+                </View> : null}
+                {duplicateEmail ? <View style={{ marginHorizontal: wp(5), marginTop: wp(2) }}>
+                    <Apptext style={{ fontSize: 10, color: "red" }}>
+                        The email address is already in use by another account.</Apptext>
+                </View> : null}
+                {badFormat ? <View style={{ marginHorizontal: wp(5), marginTop: wp(2) }}>
+                    <Apptext style={{ fontSize: 10, color: "red" }}>
+                        The email address is badly formatted</Apptext>
+                </View> : null}
+
+                <InputField
                     // keyboardType="email-address"
                     placeholder={"●●●●●●"}
                     placeholderTextColor={Colors.red}
@@ -37,7 +106,21 @@ const Signup = (props) => {
                     rightImageWidth={wp(8.5)}
                     rightImageHeight={wp(8.5)}
                     marginTopp={wp(5)}
+                    onChangeText={(txt) => {
+                        setPassword(txt)
+                        setPassChk(false)
+                    }}
                 />
+
+                {passChk ? <View style={{ marginHorizontal: wp(5), marginTop: wp(2) }}>
+                    <Apptext style={{ fontSize: 10, color: "red" }}>
+                        Please Enter Strong Password</Apptext>
+                </View> : null}
+                {weakPass ? <View style={{ marginHorizontal: wp(5), marginTop: wp(2) }}>
+                    <Apptext style={{ fontSize: 10, color: "red" }}>
+                        Password should be at least 6 characters</Apptext>
+                </View> : null}
+
                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: wp(3), paddingHorizontal: wp(4), alignItems: "center" }}>
                     <ResponsiveText size="h9" textAlign={"center"} margin={[0, 0, 0, 0]}>{"Private Profile"}</ResponsiveText>
                     <Switch
@@ -52,7 +135,8 @@ const Signup = (props) => {
                 <ResponsiveText size="h9" textAlign={"center"} margin={[wp(6), 0, 0, 0]}>{"1 / 2"}</ResponsiveText>
                 <View style={{ paddingHorizontal: wp(22) }}>
                     <Button
-                        onPress={() => props.navigation.navigate("CompleteProfile")}
+                        onPress={() => checkValues()}
+                        // onPress={() =>props.navigation.navigate("CompleteProfile")}
                         Text={'Next'}
                         marginTop={wp(2)}
                         marginHorizontal={wp(20)}
