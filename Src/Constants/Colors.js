@@ -8,7 +8,8 @@ export const Colors = {
   TextInputBackgroundColor: '#D0D0D0',
   passwordIconColor: '#323232',
   forgetPassword: '#727272',
-  grey :"#878484"
+  grey :"#878484",
+  baseURL:'https://livescore6.p.rapidapi.com'
 };
 
 export const AppTheme = {

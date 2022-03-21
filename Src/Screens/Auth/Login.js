@@ -10,6 +10,7 @@ import { Colors } from '../../Constants/Colors';
 import { getData } from '../../firebase/utility';
 import Apptext from '../../Components/Apptext';
 import auth from '@react-native-firebase/auth';
+import Snackbar from 'react-native-snackbar';
 
 
 const Login = (props) => {
@@ -86,13 +87,19 @@ const Login = (props) => {
                 }
                 else if (error.code === 'auth/wrong-password') {
                     setWeakPass(true)
+                    console.log(error.code)
                     setPassChk(false)
                     setBadFormat(false)
                     setNoUser(false)
 
                 }
                 else {
-                    Alert.alert(error.code)
+                    Snackbar.show({
+                        text: error.code,
+                        duration: Snackbar.LENGTH_LONG,
+                        backgroundColor:Colors.yellowColor
+                      });
+                    // Alert.alert(error.code)
                 }
             });
         return success;
@@ -130,7 +137,7 @@ const Login = (props) => {
                 </View> : null}
                 {noUser ? <View style={{ marginHorizontal: wp(5), marginTop: wp(2) }}>
                     <Apptext style={{ fontSize: 10, color: "red" }}>
-                        There is no user record corresponding to this identifier. The user may have been deleted.
+                        There is no user record found with this email
                     </Apptext>
                 </View> : null}
                 <InputField
@@ -155,7 +162,7 @@ const Login = (props) => {
                 </View> : null}
                 {weakPass ? <View style={{ marginHorizontal: wp(5), marginTop: wp(2) }}>
                     <Apptext style={{ fontSize: 10, color: "red" }}>
-                        The password is invalid or the user does not have a password.
+                        The password is weak or the user enter invalid password.
                     </Apptext>
                 </View> : null}
                 

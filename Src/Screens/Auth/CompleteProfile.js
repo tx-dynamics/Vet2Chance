@@ -13,7 +13,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Apptext from '../../Components/Apptext';
 import auth from '@react-native-firebase/auth';
 import { saveData } from '../../firebase/utility';
-
+import Snackbar from 'react-native-snackbar';
 
 
 const CompleteProfile = (props) => {
@@ -74,12 +74,23 @@ const CompleteProfile = (props) => {
                     await saveData('Users', user.user.uid, Details);
                     console.log(user);
                     props.navigation.navigate("Login")
-                    Alert.alert("Account Created")
+                    // Alert.alert("Account Created")
+                    Snackbar.show({
+                        text: 'Account Created',
+                        duration: Snackbar.LENGTH_LONG,
+                        backgroundColor:Colors.yellowColor
+                      });
 
                 })
                 .catch(function (error) {
                     success = false;
-                    Alert.alert(error.message)
+                    console.log(error)
+                    Snackbar.show({
+                        text: error.code,
+                        duration: Snackbar.LENGTH_LONG,
+                        backgroundColor:Colors.yellowColor
+                      });
+                    // Alert.alert(error.code)
                     props.navigation.navigate("SignUp")
                     
                 });
