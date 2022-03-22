@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, StyleSheet, Image, ImageBackground, Pressable, FlatList } from 'react-native'
+import React,{useState, useEffect} from 'react'
+import { View, StyleSheet, Image,ActivityIndicator, ImageBackground, Pressable, FlatList } from 'react-native'
 
 import Header from '../../Components/Header';
 import ResponsiveText from '../../Components/RnText';
@@ -11,19 +11,63 @@ import { iconPath } from '../../Constants/icon';
 import { ScrollView } from 'react-native-gesture-handler';
 import Svg, { Text } from "react-native-svg";
 import Fonticon from '../../Constants/FontIcon';
+import Snackbar from 'react-native-snackbar';
 
-const filterData = [
-    { id: "1", ImageName: iconPath.FootballImage, title: "NFL" },
-    { id: "2", ImageName: iconPath.FootballImage, title: "NCAAF" },
-    { id: "3", ImageName: iconPath.FootballImage, title: "MLB" },
-    { id: "4", ImageName: iconPath.FootballImage, title: "NBA" },
-    { id: "5", ImageName: iconPath.FootballImage, title: "NHL" },
-    { id: "6", ImageName: iconPath.FootballImage, title: "Add More" },
-]
+
+// const filterData = [
+//     { id: "1", ImageName: iconPath.FootballImage, title: "NFL" },
+//     { id: "2", ImageName: iconPath.FootballImage, title: "NCAAF" },
+//     { id: "3", ImageName: iconPath.FootballImage, title: "MLB" },
+//     { id: "4", ImageName: iconPath.FootballImage, title: "NBA" },
+//     { id: "5", ImageName: iconPath.FootballImage, title: "NHL" },
+//     { id: "6", ImageName: iconPath.FootballImage, title: "Add More" },
+// ]
+
 
 const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long"
 
 const FeedScreen = (props) => {
+
+
+    const [newsData, setNewsData] = useState([]);
+    const [isLoading, setLoading] = useState(false)
+
+    const getNews = async () => {
+        setLoading(true)
+        fetch(Colors.baseURL + '/news/v2/list', {
+            method: 'GET',
+            headers: {
+                'x-rapidapi-host': 'livescore6.p.rapidapi.com',
+                'x-rapidapi-key': '37f361a9f1msh0f867dbf2bcb62bp19ba82jsnc5b46c71f72f'
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // console.log(data)
+                setNewsData(data?.topStories)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error(err);
+                Snackbar.show({
+                    text: err,
+                    duration: Snackbar.LENGTH_LONG,
+                    backgroundColor: Colors.yellowColor
+                });
+                setLoading(false)
+            })
+        // .catch((error) => Alert.alert("Error In API!"))
+    }
+    
+    useEffect(() => {
+        getNews()
+    },[])
+
+    if (isLoading === true) {
+        return <ActivityIndicator size={"small"} color={Colors.red} />
+    }
+    else{
+
     return (
         <View style={styles.container}>
             <Header midtitle title={"FEED"}
@@ -32,15 +76,21 @@ const FeedScreen = (props) => {
                 leftPress={() => props.navigation.goBack()}
             />
             <FlatList
-                data={filterData}
+                data={newsData}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <Pressable onPress={() => props.navigation.navigate("FeedDetails")}>
+                    <Pressable onPress={() => props.navigation.navigate("FeedDetails", {item:item})}>
                         <View style={{ height: 267, width: "95%", margin: 10,}} >
                             <ImageBackground
-                                source={item.ImageName} style={{ height: "100%", width: "100%", alignSelf: "center", }} imageStyle={{borderRadius:10}}>
-                                <View style={{ position: "absolute", bottom: 10, width: "90%", marginStart: 20 }}>
-                                    <ResponsiveText size={"h6"} color={"white"} fontFamily={fonts.Montserrat_Bold} margin={[10, 0, 0, 0]}>{"Michigan Wolverines Vs. Penn State Nittany Lions"}</ResponsiveText>
+                                source={{uri : item?.mainMedia?.thumbnail?.url}} style={{ height: "100%", width: "100%", 
+                                alignSelf: "center", }} imageStyle={{borderRadius:10}}>
+                                <View style={{ position: "absolute", bottom: 10, width: "90%",
+                                marginStart: 20 }}>
+                                    <ResponsiveText size={"h6"} color={"white"} fontFamily={fonts.Montserrat_Bold}
+                                     margin={[10, 0, 0, 0]}>
+                                    {item?.title}
+                                    {/* {console.log(item?.mainMedia?.gallery?.url)} */}
+                                     </ResponsiveText>
                                 </View>
 
                             </ImageBackground>
@@ -51,6 +101,7 @@ const FeedScreen = (props) => {
 
         </View>
     )
+                }
 }
 export default FeedScreen;
 const styles = StyleSheet.create({

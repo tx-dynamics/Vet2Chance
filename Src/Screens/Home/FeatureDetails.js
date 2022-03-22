@@ -11,7 +11,7 @@ import { iconPath } from '../../Constants/icon';
 import { ScrollView } from 'react-native-gesture-handler';
 import Svg, { Text } from "react-native-svg";
 import Fonticon from '../../Constants/FontIcon';
-
+import moment from 'moment';
 import HotMatchesCard from './HotMatchesCard'
 import HomeHeadings from './HomeHeadings'
 
@@ -27,9 +27,13 @@ const filterData = [
 const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long"
 
 const FeatureDetails = (props) => {
+
+    const newsData = props?.route?.params?.newsData;
+    // console.log("item", newsData)
+
     return (
         <View style={styles.container}>
-            <Header midtitleCenter title={"NBA"}
+            <Header midtitleCenter title={newsData[0]?.categoryLabel}
                 left LeftImage ImageName={iconPath.backIcon}
                 leftImageWidth={wp(4)} leftImageHeight={wp(4)}
                 leftPress={() => props.navigation.goBack()}
@@ -37,18 +41,27 @@ const FeatureDetails = (props) => {
             <ScrollView style={{}}>
                 <Image source={iconPath.FootballImage} style={{ width: wp(100), height: wp(55) }} />
                 <View style={{ paddingHorizontal: wp(6), paddingBottom: wp(10) }}>
-                    <ResponsiveText size={"h6"} fontFamily={fonts.Montserrat_Bold} margin={[10, 0, 0, 0]}>{"Top 10 Highly Paying Countries For Football"}</ResponsiveText>
+                    <ResponsiveText size={"h6"} fontFamily={fonts.Montserrat_Bold} margin={[10, 0, 0, 0]}>
+                    {newsData[0]?.title}
+                    </ResponsiveText>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: wp(2) }}>
-                        <ResponsiveText size={"h9"} color={"#878484"} margin={[0, 0, 0, 0]}>{"by Isaiah Sirois"}</ResponsiveText>
-                        <ResponsiveText size={"h9"} color={"#878484"} margin={[0, 0, 0, 0]}>{"14 hours ago"}</ResponsiveText>
+                        <ResponsiveText size={"h9"} color={"#878484"} margin={[0, 0, 0, 0]}>
+                        {newsData[0]?.authors[0]?.name ? "by " + newsData[0]?.authors[0]?.name : null }
+                        </ResponsiveText>
+                        <ResponsiveText size={"h9"} color={"#878484"} margin={[0, 0, 0, 0]}>
+                        {moment(newsData[0]?.createdAt).fromNow() }
+                        </ResponsiveText>
                     </View>
                     <View style={{ height: 1, backgroundColor: "#DADADA", width: "100%", marginVertical: wp(2) }} />
 
-                    <ResponsiveText size={"h15"} fontFamily={fonts.Montserrat_Bold} margin={[0, 0, 0, 0]}>{"What is Lorem Ipsum?"}</ResponsiveText>
-                    <ResponsiveText size={"h10"} textAlign={'justify'} margin={[0, 0, 0, 0]}>{TextData}</ResponsiveText>
-
-                    <ResponsiveText size={"h15"} fontFamily={fonts.Montserrat_Bold} margin={[8, 0, 0, 0]}>{"What is Lorem Ipsum?"}</ResponsiveText>
-                    <ResponsiveText size={"h10"} textAlign={'justify'} margin={[0, 0, 0, 0]}>{TextData + '\n' + TextData + TextData}</ResponsiveText>
+                    {/* <ResponsiveText size={"h15"} fontFamily={fonts.Montserrat_Bold} margin={[0, 0, 0, 0]}>
+                    {"What is Lorem Ipsum?"}
+                    </ResponsiveText>
+                     */}
+                    
+                    <ResponsiveText size={"h10"} textAlign={'justify'} margin={[10, 0, 10, 0]}>
+                    {newsData[0]?.subTitle}
+                    </ResponsiveText>
 
 
                     <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} margin={[8, 0, 8,]}>{"Best NBA Player Props (11/09/21)"}</ResponsiveText>

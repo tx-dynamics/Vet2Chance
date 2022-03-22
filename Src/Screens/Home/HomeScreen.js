@@ -14,6 +14,8 @@ import HotMatchesCard from './HotMatchesCard'
 import HomeHeadings from './HomeHeadings'
 import PodcastCard from './PodcastCard'
 import Snackbar from 'react-native-snackbar';
+import CountryFlag from "react-native-country-flag";
+
 
 const HomeScreen = (props) => {
 
@@ -138,11 +140,12 @@ const HomeScreen = (props) => {
                             <View style={{ marginTop: wp(6), paddingHorizontal: wp(2) }}>
                                 <Pressable onPress={() => props.navigation.navigate("HotMatches")}
                                     style={{ alignItems: "center" }}>
-                                    <Image source={iconPath.MLB}
+                                    {/* <Image source={iconPath.MLB}
                                         style={{
                                             width: wp(10), height: wp(10),
                                             resizeMode: "contain"
-                                        }} />
+                                        }} /> */}
+                                    <CountryFlag isoCode="de" size={20} />
                                     <ResponsiveText size={"h10"}
                                         fontFamily={fonts.Montserrat_Bold}
                                         textAlign={"center"} margin={[wp(2)]}>
@@ -201,18 +204,18 @@ const HomeScreen = (props) => {
 
                 <HomeHeadings imageName={iconPath.FeaturedIcon} textTitle={"FEATURED"}
                     marginTop={wp(2.5)} />
-                <Pressable onPress={() => props.navigation.navigate("FeatureDetails")}>
-                    <ImageBackground source={iconPath.FootballImage} style={{ width: wp(88), height: wp(66), alignSelf: "center", marginTop: wp(2) }}
-                        resizeMode='contain'>
-                        <ImageBackground source={iconPath.darkRactangle} style={{ width: wp(88), height: wp(66),
-                         alignSelf: "center", alignItems: "flex-start", justifyContent: "flex-end", paddingBottom: wp(5),
+                <Pressable onPress={() => props.navigation.navigate("FeatureDetails", {newsData})}>
+                    {/* <ImageBackground source={iconPath.FootballImage} style={{ width: wp(88), height: wp(66), alignSelf: "center", marginTop: wp(2) }}
+                        resizeMode='contain'> */}
+                        <ImageBackground source={{uri: newsData[0]?.mainMedia?.thumbnail?.url}} style={{ width: wp(88), height: wp(66),
+                         alignSelf: "center", alignItems: "flex-start", justifyContent: "flex-end", paddingBottom: wp(10),
                           paddingHorizontal: wp(6) }}
                             resizeMode='contain'>
                             <ResponsiveText size={"h14"} fontFamily={fonts.Montserrat_Bold}
                              color={Colors.white}>
                             {mainNews?.layoutContext?.meta?.title}</ResponsiveText>
                         </ImageBackground>
-                    </ImageBackground>
+                    {/* </ImageBackground> */}
                 </Pressable>
 
 
@@ -248,7 +251,7 @@ const HomeScreen = (props) => {
                     marginTop={wp(4)} />
 
 
-                <ImageBackground source={iconPath.FootballImage1} style={{ width: wp(88), height: wp(66),
+                <ImageBackground source={{uri : mainNews?.topStories?.[0]?.mainMedia?.gallery?.url}} style={{ width: wp(88), height: wp(66),
                  alignSelf: "center", marginTop: wp(2) }}
                     resizeMode='contain'>
                     <ImageBackground source={iconPath.darkRactangle} style={{ width: wp(88), height: wp(66),
