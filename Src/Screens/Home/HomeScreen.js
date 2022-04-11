@@ -15,6 +15,8 @@ import HomeHeadings from './HomeHeadings'
 import PodcastCard from './PodcastCard'
 import Snackbar from 'react-native-snackbar';
 import CountryFlag from "react-native-country-flag";
+import { getAllOfCollection,getData, getListing} from "../../firebase/utility";
+
 
 
 const HomeScreen = (props) => {
@@ -35,6 +37,7 @@ const HomeScreen = (props) => {
     const [isLoading, setLoading] = useState(false);
     const [newsData, setNewsData] = useState(false);
     const [mainNews, setMainNews] = useState(false);
+    const [isPodCastData, setPodCastData] = useState([]);
 
 
     const getLeagues = () => {
@@ -48,7 +51,7 @@ const HomeScreen = (props) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 setFilterData(data.Ccg)
                 setLoading(false)
             })
@@ -75,7 +78,7 @@ const HomeScreen = (props) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 setMatchesData(data.Stages)
             })
             .catch(err => {
@@ -100,7 +103,7 @@ const HomeScreen = (props) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 setNewsData(data.featuredArticles)
                 setMainNews(data)
             })
@@ -115,11 +118,17 @@ const HomeScreen = (props) => {
         // .catch((error) => Alert.alert("Error In API!"))
     }
 
+    const podCastData = async () => {
+        let res = await getAllOfCollection("Podcast")
+        console.log("res", res.media)
+        setPodCastData(res.media)
+    }
 
     useEffect(() => {
         getLeagues()
         getMatches()
         getNews()
+        podCastData()
 
     }, [])
 
@@ -271,16 +280,40 @@ const HomeScreen = (props) => {
                             marginTop={wp(.1)} />
                         <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
                     </View>
-
                     <View style={[styles.boxWithShadow, {
+                                    backgroundColor: Colors.white, borderRadius: 8, paddingVertical: wp(2), marginHorizontal: wp(6), marginTop: wp(2),
+                                    paddingLeft: wp(6), paddingRight: wp(3), marginBottom: wp(5)
+                                }]}>
+                    <FlatList
+                            data={isPodCastData}
+                            keyExtractor={(item) => item?.id}
+                            renderItem={({ item, index }) => (
+                                    <View>
+                                    <PodcastCard
+                                    Name={item?.title}
+                                    by={item?.desc}
+                                    // img={{uri : item?.thumbnail}}
+                                    // time={item?.secs}
+                                    />
+                                    <View style={{ backgroundColor: "#C4C4C4", height: 1, 
+                                     width: "100%", marginVertical: wp(1) }} />
+                                  </View> 
+                            )} />
+
+</View>
+
+                    {/* <View style={[styles.boxWithShadow, {
                         backgroundColor: Colors.white, borderRadius: 8, paddingVertical: wp(2), marginHorizontal: wp(6), marginTop: wp(2),
                         paddingLeft: wp(6), paddingRight: wp(3), marginBottom: wp(5)
                     }]}>
 
-                        <PodcastCard />
+                        <PodcastCard
+                        Name={"ImAm"}
+                        by={"By This ine"}
+                        time={"30s"}
+                        />
                         <View style={{ backgroundColor: "#C4C4C4", height: 1, width: "100%", marginVertical: wp(1) }} />
-                        <PodcastCard />
-                    </View>
+                    </View> */}
                 </Pressable>
 
 

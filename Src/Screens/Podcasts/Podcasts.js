@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { View, StyleSheet, Image, ImageBackground, Pressable, TouchableOpacity } from 'react-native'
 
 import Header from '../../Components/Header';
@@ -10,6 +10,9 @@ import { fonts } from '../../Constants/Fonts';
 import { iconPath } from '../../Constants/icon';
 import { ScrollView } from 'react-native-gesture-handler';
 import Fonticon from '../../Constants/FontIcon';
+import { getAllOfCollection,getData, getListing} from "../../firebase/utility";
+
+
 
 const StuffData = [
     { id: "1", title: "Stuff\nYou Must Know", desc: "Description", color: "#950F12" },
@@ -24,6 +27,19 @@ const ProdData = [
 
 
 const Podcasts = (props) => {
+
+    const [isPodCastData, setPodCastData] = useState([]);
+
+    const podCastData = async () => {
+        let res = await getAllOfCollection("Podcast")
+        console.log("restt", res.media)
+        setPodCastData(res.media)
+    }
+
+    useEffect(() => {
+        podCastData()
+    }, [])
+
     return (
         <View style={styles.container}>
             <Header midtitleCenter title={"Podcasts"}
@@ -44,24 +60,34 @@ const Podcasts = (props) => {
 
                         <View style={{ flex: 1, marginRight: wp(3), }}>
                             <ScrollView>
-                                {StuffData.map((item, index) =>
+                                {isPodCastData.map((item, index) =>
                                     <Pressable style={{
-                                        backgroundColor: item.color, borderRadius: 20, paddingHorizontal: wp(3), paddingVertical: wp(3),
+                                        backgroundColor: item.color ? item.color : "#950F12", borderRadius: 20, 
+                                        paddingHorizontal: wp(3), paddingVertical: wp(3),
                                         height: index % 2 === 0 ? wp(51) : wp(43.6),
                                         marginTop: index === 0 ? 0 : wp(4),
                                         marginBottom: index === StuffData.length - 1 ? wp(4) : 0
                                     }}>
-                                        <ResponsiveText size={"h7"} padding={[index % 2 === 0 ? wp(2) : wp(1), wp(4), 0, wp(2)]} color={Colors.white} fontFamily={fonts.Montserrat_Bold} >{"Stuff\nYou Must Know"}</ResponsiveText>
-                                        <ResponsiveText size={"h10"} padding={[wp(5), 0, 0, wp(2)]} color={Colors.white} >{"Description"}</ResponsiveText>
+                                        <ResponsiveText size={"h7"} padding={[index % 2 === 0 ? wp(2)
+                                             : wp(1), wp(4), 0, wp(2)]} color={Colors.white} 
+                                             fontFamily={fonts.Montserrat_Bold} >{item?.title}
+                                             </ResponsiveText>
+                                        <ResponsiveText size={"h10"} padding={[wp(5), 0, 0, wp(2)]}
+                                         color={Colors.white} >{item?.desc}</ResponsiveText>
                                         <View style={{
                                             flexDirection: "row", justifyContent: "space-between",
                                             marginTop: index % 2 === 0 ? wp(6) : 0,
                                             alignItems: index % 2 === 0 ? "flex-end" : "center"
                                         }}>
-                                            <TouchableOpacity onPress={() => props.navigation.navigate("PodcastsPlay")}>
-                                                <Image source={iconPath.playPodcast} style={{ width: wp(7.5), height: wp(7.5), resizeMode: "contain", marginTop: wp(1) }} />
+                                            <TouchableOpacity
+                                             onPress={() => props.navigation.navigate("PodcastsPlay", {item:item})}>
+                                                <Image source={iconPath.playPodcast} style={{ width: wp(7.5),
+                                                     height: wp(7.5), resizeMode: "contain", 
+                                                     marginTop: wp(1) }} />
                                             </TouchableOpacity>
-                                            <Image source={iconPath.podcastProd} style={{ width: wp(13.5), height: wp(13), resizeMode: "contain", marginRight: wp(1), borderRadius: 15 }} />
+                                            <Image source={iconPath.podcastProd} style={{ width: wp(13.5),
+                                                 height: wp(13), resizeMode: "contain", marginRight: wp(1),
+                                                  borderRadius: 15 }} />
                                         </View>
                                     </Pressable>
                                 )}
@@ -70,19 +96,27 @@ const Podcasts = (props) => {
 
                         <View style={{ flex: 1, marginLeft: wp(3), }}>
                             <ScrollView>
-                                {ProdData.map((item, index) =>
+                                {isPodCastData.map((item, index) =>
                                     <Pressable style={{
-                                        backgroundColor: item.color, borderRadius: 20, paddingHorizontal: wp(3), paddingVertical: wp(3),
+                                        backgroundColor: item.color ? item.color : "#D4C739", borderRadius: 20, paddingHorizontal: wp(3),
+                                         paddingVertical: wp(3),
                                         marginTop: index === 0 ? 0 : wp(4),
                                         height: index % 2 !== 0 ? wp(51) : wp(43.6)
                                     }}>
-                                        <ResponsiveText size={"h8"} padding={[wp(1), wp(4), 0, wp(2)]} fontFamily={fonts.Montserrat_Bold} >{"Podcast Name"}</ResponsiveText>
-                                        <ResponsiveText size={"h10"} padding={[wp(1.5), 0, 0, wp(2)]}>{"Description"}</ResponsiveText>
-                                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end", flex: 1 }}>
-                                            <TouchableOpacity onPress={() => props.navigation.navigate("PodcastsPlay")}>
-                                                <Image source={iconPath.playPodcast} style={{ width: wp(7.5), height: wp(7.5), resizeMode: "contain", marginBottom: wp(1) }} />
+                                        <ResponsiveText size={"h8"} padding={[wp(1), wp(4), 0, wp(2)]} 
+                                        fontFamily={fonts.Montserrat_Bold} >{item?.title}</ResponsiveText>
+                                        <ResponsiveText size={"h10"} padding={[wp(1.5), 0, 0, wp(2)]}>
+                                            {item?.desc}</ResponsiveText>
+                                        <View style={{ flexDirection: "row", justifyContent: "space-between",
+                                         alignItems: "flex-end", flex: 1 }}>
+                                            <TouchableOpacity 
+                                            onPress={() => props.navigation.navigate("PodcastsPlay", {item:item})}>
+                                                <Image source={iconPath.playPodcast} style={{ width: wp(7.5), 
+                                                    height: wp(7.5), resizeMode: "contain", marginBottom: wp(1) }} />
                                             </TouchableOpacity>
-                                            <Image source={iconPath.podcastProd} style={{ width: wp(13.5), height: wp(13), resizeMode: "contain", marginRight: wp(1), borderRadius: 15 }} />
+                                            <Image source={iconPath.podcastProd} style={{ width: wp(13.5), 
+                                                height: wp(13), resizeMode: "contain", marginRight: wp(1), 
+                                                borderRadius: 15 }} />
                                         </View>
                                     </Pressable>
 
