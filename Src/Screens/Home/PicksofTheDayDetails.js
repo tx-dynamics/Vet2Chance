@@ -9,6 +9,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ResponsiveText from '../../Components/RnText';
 
 const PicksofTheDayDetails = (props) => {
+    
+    const items = props?.route?.params?.item;
+    console.log(items)
+
     return (
         <View style={styles.container}>
             <ImageBackground source={iconPath.PicksOfTheDay} style={{ flex: 1 }} resizeMode='cover'>

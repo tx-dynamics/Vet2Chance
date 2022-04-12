@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { View, Text, Image, ScrollView, Pressable, TouchableOpacity } from 'react-native'
 import { Colors } from '../../Constants/Colors';
 import Header from '../../Components/Header';
@@ -9,8 +9,8 @@ import ResponsiveText from '../../Components/RnText';
 import Stars from 'react-native-stars';
 import Slider from 'react-native-slider';
 import { getAllOfCollection,getData, getListing} from "../../firebase/utility";
-import TrackPlayer,{Capability,State,usePlaybackState,useProgress,useTrackPlayerEvents }from 'react-native-track-player';
-
+import TrackPlayer,{Capability,scrollX,State,usePlaybackState,useProgress,useTrackPlayerEvents }from 'react-native-track-player';
+import Animated, { useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
 
 const PlayData = [
     { id: 1, ImageName: iconPath.podcastProd, title: "Podcast Name1", des :"By Name1" },
@@ -20,13 +20,20 @@ const PlayData = [
     { id: 5, ImageName: iconPath.podcastProd, title: "Podcast Name5" , des :"By Name5"},
 ]
 
+// const {width, height} = Dimensions.get('window')
+
 export default function PodcastsPlay(props) {
 
     const items = props?.route?.params?.item;
-    console.log("item", items)
+
+    const scrollX = useRef(new Animated.Value(0)).current;
+    const [songIndex, setSongIndex] = useState(0);
+
 
     const [isPodCastData, setPodCastData] = useState([]);
     const playbackState = usePlaybackState();
+    const progress = useProgress();
+
 
     const podCastData = async () => {
         let res = await getAllOfCollection("Podcast")
@@ -35,8 +42,38 @@ export default function PodcastsPlay(props) {
     }
 
     useEffect(() => {
-        podCastData()
+        start();
+        podCastData();
+        
+        // scrollX.addListener(({value}) => {
+        //     const index = Math.round( value / width);
+        //     skipTo(index);
+        //     setSongIndex(index)
+        // });
+
+        // return () => {
+        //     scrollX.removeAllListeners();
+        // }
+
     }, [])
+    
+    const skipTo = async(trackId) => {
+        await TrackPlayer.skip(trackId);
+    }
+    
+    const skipToNext = () => {
+        TrackPlayer.skipToNext()
+        // songSlider.current.scrollToOffset({
+        //     offset:(songIndex + 1) * width,
+        // });
+    }
+
+    const skipToPrevious = () => {
+        TrackPlayer.skipToPrevious()
+        // songSlider.current.scrollToOffset({
+        //     offset:(songIndex - 1) * width,
+        // });
+    }
 
     const start = async () => {
         // Set up the player
@@ -123,12 +160,16 @@ export default function PodcastsPlay(props) {
                     <View style={{ marginTop: wp(4) }}>
                         <Slider
                             style={{ width: "100%", height: 40, }}
+                            value={progress.position}
                             minimumValue={0}
-                            maximumValue={1}
+                            maximumValue={progress.duration}
                             minimumTrackTintColor="#FFFFFF"
                             maximumTrackTintColor="#C4C4C4"
                             thumbTintColor={Colors.red}
                             thumbStyle={{ width: 20, height: 20, borderWidth: 4, borderColor: "white" }}
+                            onSlidingComplete={async(value) => {
+                                await TrackPlayer.seekTo(value);
+                            }}
                         />
 
                     </View>
@@ -136,7 +177,11 @@ export default function PodcastsPlay(props) {
             </View>
             <View style={{ flex:1, paddingBottom:30}}>
                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", position: "absolute", width: "100%", top: -30 ,  alignItems:"center"}}>
+                        <TouchableOpacity onPress={() => {skipToPrevious()}}>
+
                         <Image source={iconPath.MusicBack} style={{height:50 , width:50}} resizeMode={"center"}/>
+                        </TouchableOpacity>
+                    
                     {/* <View style={{ height: 50, width: 50, justifyContent: "center", alignItems: "center", borderRadius: 50 / 2, borderColor: "white", borderWidth: 2, elevation: 5 }}>
                         <View style={{ height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: "white", justifyContent: "center", alignItems: "center" }}>
                             <Image source={iconPath.Play} style={{ width: 22, height: 22, resizeMode: "contain", }} />
@@ -147,7 +192,7 @@ export default function PodcastsPlay(props) {
                     <TouchableOpacity 
                     onPress={() => {
                         togglePlayback(playbackState)
-                        start();
+                        // start();
                     }}
                     style={{ height: 70, width: 70, borderRadius: 70 / 2, borderColor: "white", 
                     borderWidth: 1, backgroundColor: "white", justifyContent: "center", alignItems: "center",
@@ -160,8 +205,10 @@ export default function PodcastsPlay(props) {
     <Image source={iconPath.Play} style={{ width: 22, height: 22, resizeMode: "contain", }} />
 }
                     </TouchableOpacity>
-                    <Image source={iconPath.MusicNext} style={{height:50 , width:50 ,resizeMode: "contain",}} />
 
+                    <TouchableOpacity onPress={() => {skipToNext()}}>
+                    <Image source={iconPath.MusicNext} style={{height:50 , width:50 ,resizeMode: "contain",}} />
+                    </TouchableOpacity>
 
                     {/* <View style={{ height: 50, width: 50, justifyContent: "center", alignItems: "center", borderRadius: 50 / 2, borderColor: "white", borderWidth: 2, elevation: 5 }}>
                         <View style={{ height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: "white", justifyContent: "center", alignItems: "center" }}>

@@ -37,6 +37,7 @@ const HomeScreen = (props) => {
     const [isLoading, setLoading] = useState(false);
     const [newsData, setNewsData] = useState(false);
     const [mainNews, setMainNews] = useState(false);
+    const [isPicksData, setPicksData] = useState([]);
     const [isPodCastData, setPodCastData] = useState([]);
 
 
@@ -118,14 +119,21 @@ const HomeScreen = (props) => {
         // .catch((error) => Alert.alert("Error In API!"))
     }
 
+    const picksData = async () => {
+        let res = await getAllOfCollection("Picks")
+        // console.log("res", res.media)
+        setPicksData(res.media)
+    }
+
     const podCastData = async () => {
         let res = await getAllOfCollection("Podcast")
-        console.log("res", res.media)
+        // console.log("res", res.media)
         setPodCastData(res.media)
     }
 
     useEffect(() => {
         getLeagues()
+        picksData()
         getMatches()
         getNews()
         podCastData()
@@ -193,12 +201,12 @@ const HomeScreen = (props) => {
                             </Pressable>
                         )} */}
                         <FlatList
-                            data={matchesData}
+                            data={isPicksData}
                             horizontal={true}
-                            keyExtractor={(item) => item?.Sid}
+                            keyExtractor={(item) => item?.id}
                             renderItem={({ item, index }) => (
-                                <Pressable onPress={() => props.navigation.navigate('OthersStack', { screen: 'PicksofTheDayDetails' })}>
-                                <Image source={iconPath.PicksOfTheDay}
+                                <Pressable onPress={() => props.navigation.navigate('OthersStack',{screen: 'PicksofTheDayDetails'} , {item:item})} >
+                                <Image source={{uri : item?.thumbnail}}
                                  style={{ width: wp(30), height: wp(40), resizeMode: "contain", marginTop: wp(2), borderRadius: 10 }} />
                             </Pressable>
                             )} />
