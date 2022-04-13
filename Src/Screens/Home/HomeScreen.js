@@ -22,15 +22,15 @@ import { getAllOfCollection,getData, getListing} from "../../firebase/utility";
 const HomeScreen = (props) => {
 
 
-    // const [
-    //     filterData = [
-    //     { id: "1", ImageName: iconPath.NFL, title: "NFL" },
-    //     { id: "2", ImageName: iconPath.NCAAF, title: "NCAAF" },
-    //     { id: "3", ImageName: iconPath.MLB, title: "MLB" },
-    //     { id: "4", ImageName: iconPath.NBA, title: "NBA" },
-    //     { id: "5", ImageName: iconPath.NHL, title: "NHL" },
-    //     { id: "6", ImageName: iconPath.addMore, title: "Add More" },
-    // ], setFilterData] = useState();
+    const [
+        filtersData = [
+        { id: "1", ImageName: iconPath.NFL, title: "Football" },
+        { id: "2", ImageName: iconPath.NCAAF, title: "Hockey" },
+        { id: "3", ImageName: iconPath.MLB, title: "Basketball" },
+        { id: "4", ImageName: iconPath.NBA, title: "Tennis" },
+        { id: "5", ImageName: iconPath.NHL, title: "Cricket" },
+    ], setFiltersData] = useState();
+    
     const [filterData, setFilterData] = useState([]);
 
     const [matchesData, setMatchesData] = useState([]);
@@ -41,9 +41,36 @@ const HomeScreen = (props) => {
     const [isPodCastData, setPodCastData] = useState([]);
 
 
-    const getLeagues = () => {
-        setLoading(true)
-        fetch(Colors.baseURL + '/leagues/v2/list?Category=Cricket', {
+    // const getLeagues = () => {
+    //     setLoading(true)
+    //     fetch(Colors.baseURL + '/leagues/v2/list?Category=Cricket', {
+    //         method: 'GET',
+    //         headers: {
+    //             'x-rapidapi-host': 'livescore6.p.rapidapi.com',
+    //             'x-rapidapi-key': '37f361a9f1msh0f867dbf2bcb62bp19ba82jsnc5b46c71f72f'
+    //         }
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             // console.log(data)
+    //             setFilterData(data.Ccg)
+    //             setLoading(false)
+    //         })
+    //         .catch(err => {
+    //             console.error(err);
+    //             Snackbar.show({
+    //                 text: err,
+    //                 duration: Snackbar.LENGTH_LONG,
+    //                 backgroundColor: Colors.yellowColor
+    //             });
+    //             setLoading(false)
+    //         })
+    //     // .catch((error) => Alert.alert("Error In API!"))
+    // }
+
+    const getLeagues = async () => {
+
+        fetch(Colors.baseURL + '/matches/v2/list-by-league?Category=football&Ccd=champions-league&Scd=group-b', {
             method: 'GET',
             headers: {
                 'x-rapidapi-host': 'livescore6.p.rapidapi.com',
@@ -52,35 +79,8 @@ const HomeScreen = (props) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data)
-                setFilterData(data.Ccg)
-                setLoading(false)
-            })
-            .catch(err => {
-                console.error(err);
-                Snackbar.show({
-                    text: err,
-                    duration: Snackbar.LENGTH_LONG,
-                    backgroundColor: Colors.yellowColor
-                });
-                setLoading(false)
-            })
-        // .catch((error) => Alert.alert("Error In API!"))
-    }
-
-    const getMatches = async () => {
-
-        fetch(Colors.baseURL + '/matches/v2/list-live?Category=cricket', {
-            method: 'GET',
-            headers: {
-                'x-rapidapi-host': 'livescore6.p.rapidapi.com',
-                'x-rapidapi-key': '37f361a9f1msh0f867dbf2bcb62bp19ba82jsnc5b46c71f72f'
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                // console.log(data)
-                setMatchesData(data.Stages)
+                console.log("stages",data?.Stages[0]?.Events[0]?.MD[15]?.allowedCountries[0])
+                setMatchesData(data?.Stages[0]?.Events)
             })
             .catch(err => {
                 console.error(err);
@@ -134,7 +134,6 @@ const HomeScreen = (props) => {
     useEffect(() => {
         getLeagues()
         picksData()
-        getMatches()
         getNews()
         podCastData()
 
@@ -150,24 +149,23 @@ const HomeScreen = (props) => {
                 {isLoading ? <ActivityIndicator size={"small"} color={Colors.red} />
                     :
                     <FlatList
-                        data={filterData}
+                        data={filtersData}
                         horizontal={true}
-                        keyExtractor={(item) => item?.Cid}
+                        keyExtractor={(item) => item?.id}
                         renderItem={({ item, index }) => (
                             <View style={{ marginTop: wp(6), paddingHorizontal: wp(2) }}>
-                                <Pressable onPress={() => props.navigation.navigate("HotMatches")}
+                                <Pressable onPress={() => props.navigation.navigate("HotMatches", {item:item})}
                                     style={{ alignItems: "center" }}>
-                                    {/* <Image source={iconPath.MLB}
+                                    <Image source={item?.ImageName}
                                         style={{
                                             width: wp(10), height: wp(10),
                                             resizeMode: "contain"
-                                        }} /> */}
-                                    <CountryFlag isoCode="de" size={20} />
+                                        }} />
+                                    {/* <CountryFlag isoCode={item?.MD[15]?.allowedCountries[0]} size={20} /> */}
                                     <ResponsiveText size={"h10"}
                                         fontFamily={fonts.Montserrat_Bold}
                                         textAlign={"center"} margin={[wp(2)]}>
-
-                                        {item?.Cnm}
+                                        {item?.title}
 
                                     </ResponsiveText>
                                 </Pressable>

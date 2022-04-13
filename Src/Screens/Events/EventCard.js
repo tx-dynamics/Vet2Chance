@@ -23,16 +23,21 @@ export default function EventCard(props) {
             paddingVertical: wp(2), paddingHorizontal: wp(3)
         }]}>
             <View style={{ flex: 1, alignItems: "center" }}>
-                <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#878484"}>{"12/02/2022 8:15PM"}</ResponsiveText>
+                <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} 
+                color={"#878484"}>{"12/02/2022 8:15PM"}</ResponsiveText>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-between", width: "90%" }}>
                 <View style={{alignItems:"center"}}>
-                    <Image source={iconPath.TeamImage} style={{ height: 70, width: 70 }} resizeMode={"cover"} />
-                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{"Team Name"}</ResponsiveText>
+                    <Image 
+                     source={iconPath.TeamImage}
+                    //  source={props.Leftimg}
+                     style={{ height: 70, width: 70 }} resizeMode={"cover"} />
+                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{props.LeftTeam}</ResponsiveText>
 
                 </View>
                 <View style={{ marginTop: 10 , paddingBottom:30}}>
-                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{"Premier League"}</ResponsiveText>
+                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>
+                        {props.LeagueName}</ResponsiveText>
                     <View style={{marginTop:20}}>
 
                         <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"} textAlign={"center"}>{"V/S"}</ResponsiveText>
@@ -40,8 +45,11 @@ export default function EventCard(props) {
 
                 </View>
                 <View style={{alignItems:"center"}}>
-                    <Image source={iconPath.TeamImage} style={{ height: 70, width: 70 }} resizeMode={"cover"} />
-                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{"Team Name"}</ResponsiveText>
+                    <Image 
+                    source={iconPath.TeamImage}
+                    // source={props.Rightimg} 
+                    style={{ height: 70, width: 70 }} resizeMode={"cover"} />
+                    <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{props.RightTeam}</ResponsiveText>
 
                 </View>
 

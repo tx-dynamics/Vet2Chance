@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Image, ImageBackground, Pressable } from 'react-native'
+import { View, StyleSheet,FlatList, Image, ImageBackground, Pressable } from 'react-native'
 
 import Header from '../../Components/Header';
 import ResponsiveText from '../../Components/RnText';
@@ -31,6 +31,11 @@ const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetti
 const HotMatches = (props) => {
 
     const [selectedTab, setselectedTab] = useState('1')
+    const [isData, setData] = useState([]);
+
+    const items = props?.route?.params?.item;
+    console.log("items", items)
+
 
     return (
         <View style={styles.container}>
@@ -94,10 +99,14 @@ const HotMatches = (props) => {
                 <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
             </View> */}
 
-            <EventCard />
-            <EventCard />
-            <EventCard />
-            <EventCard />
+                    <EventCard
+                    LeftTeam={items?.T1[0]?.CoNm}
+                    RightTeam={items?.T2[0]?.CoNm}
+                    LeagueName={items?.Stg?.Cnm}
+                    LeftImage={{uri : items?.T1[0]?.Img}}
+                    Rightimg={{uri : items?.T2[0]?.Img}}
+                    />
+
 
 
             {/* <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>

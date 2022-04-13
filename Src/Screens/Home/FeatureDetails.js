@@ -64,7 +64,7 @@ const FeatureDetails = (props) => {
                     </ResponsiveText>
 
 
-                    <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} margin={[8, 0, 8,]}>{"Best NBA Player Props (11/09/21)"}</ResponsiveText>
+                    {/* <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} margin={[8, 0, 8,]}>{"Best NBA Player Props (11/09/21)"}</ResponsiveText>
 
                     <View style={[styles.boxWithShadow,{ backgroundColor: Colors.white, paddingVertical: wp(3), paddingHorizontal: wp(4), borderRadius: 8 }]}>
 
@@ -144,7 +144,7 @@ const FeatureDetails = (props) => {
 
                         </View>
 
-                    </View>
+                    </View> */}
 
                 </View>
 
