@@ -24,11 +24,11 @@ const HomeScreen = (props) => {
 
     const [
         filtersData = [
-        { id: "1", ImageName: iconPath.NFL, title: "Football" },
-        { id: "2", ImageName: iconPath.NCAAF, title: "Hockey" },
-        { id: "3", ImageName: iconPath.MLB, title: "Basketball" },
-        { id: "4", ImageName: iconPath.NBA, title: "Tennis" },
-        { id: "5", ImageName: iconPath.NHL, title: "Cricket" },
+        { id: "1", ImageName: iconPath.NFL, title: "football" },
+        { id: "2", ImageName: iconPath.NCAAF, title: "hockey" },
+        { id: "3", ImageName: iconPath.MLB, title: "basketball" },
+        { id: "4", ImageName: iconPath.NBA, title: "tennis" },
+        { id: "5", ImageName: iconPath.NHL, title: "cricket" },
     ], setFiltersData] = useState();
     
     const [filterData, setFilterData] = useState([]);
@@ -154,7 +154,7 @@ const HomeScreen = (props) => {
                         keyExtractor={(item) => item?.id}
                         renderItem={({ item, index }) => (
                             <View style={{ marginTop: wp(6), paddingHorizontal: wp(2) }}>
-                                <Pressable onPress={() => props.navigation.navigate("HotMatches", {item:item})}
+                                <Pressable onPress={() => props.navigation.navigate("HotMatches", {item:item?.title})}
                                     style={{ alignItems: "center" }}>
                                     <Image source={item?.ImageName}
                                         style={{
@@ -184,13 +184,16 @@ const HomeScreen = (props) => {
 
                 <View style={[styles.boxWithShadow, styles.picksoftheDayOutter]}>
                     <View style={styles.picksoftheDayInner}>
-                        <ResponsiveText size={"h0"} fontFamily={fonts.CarbonBlock} color={Colors.red}>{"Picks"}</ResponsiveText>
+                        <ResponsiveText size={"h0"} fontFamily={fonts.CarbonBlock} color={Colors.red}>{"Picks"}
+                        </ResponsiveText>
                         <Svg height="37" width="66" style={{}}>
-                            <Text fill="#fff" stroke="black" strokeWidth='.7' fontSize="27" fontFamily={fonts.CarbonBlock} x={wp(9)} y={wp(8)} textAnchor="middle">
+                            <Text fill="#fff" stroke="black" strokeWidth='.7' fontSize="27" 
+                            fontFamily={fonts.CarbonBlock} x={wp(9)} y={wp(8)} textAnchor="middle">
                                 of The
                             </Text>
                         </Svg>
-                        <ResponsiveText size={"h0"} fontFamily={fonts.CarbonBlock} color={Colors.red} margin={[wp(0), 0, wp(0), 0]}>{"day"}</ResponsiveText>
+                        <ResponsiveText size={"h0"} fontFamily={fonts.CarbonBlock} color={Colors.red} 
+                        margin={[wp(0), 0, wp(0), 0]}>{"day"}</ResponsiveText>
                     </View>
                     <ScrollView horizontal style={{}}>
                         {/* {filterData.map((item, index) =>
@@ -203,9 +206,11 @@ const HomeScreen = (props) => {
                             horizontal={true}
                             keyExtractor={(item) => item?.id}
                             renderItem={({ item, index }) => (
-                                <Pressable onPress={() => props.navigation.navigate('OthersStack',{screen: 'PicksofTheDayDetails'} , {item:item})} >
+                                <Pressable onPress={() => props.navigation.navigate('OthersStack',
+                                {screen: 'PicksofTheDayDetails'} , {item:item})} >
                                 <Image source={{uri : item?.thumbnail}}
-                                 style={{ width: wp(30), height: wp(40), resizeMode: "contain", marginTop: wp(2), borderRadius: 10 }} />
+                                 style={{ width: wp(30), height: wp(40), resizeMode: "contain", 
+                                 marginTop: wp(2), borderRadius: 10 }} />
                             </Pressable>
                             )} />
                     </ScrollView>
@@ -222,8 +227,10 @@ const HomeScreen = (props) => {
                 <Pressable onPress={() => props.navigation.navigate("FeatureDetails", {newsData})}>
                     {/* <ImageBackground source={iconPath.FootballImage} style={{ width: wp(88), height: wp(66), alignSelf: "center", marginTop: wp(2) }}
                         resizeMode='contain'> */}
-                        <ImageBackground source={{uri: newsData[0]?.mainMedia?.thumbnail?.url}} style={{ width: wp(88), height: wp(66),
-                         alignSelf: "center", alignItems: "flex-start", justifyContent: "flex-end", paddingBottom: wp(10),
+                        <ImageBackground source={{uri: newsData[0]?.mainMedia?.thumbnail?.url}} 
+                        style={{ width: wp(88), height: wp(66),
+                         alignSelf: "center", alignItems: "flex-start", justifyContent: "flex-end",
+                          paddingBottom: wp(10),
                           paddingHorizontal: wp(6) }}
                             resizeMode='contain'>
                             <ResponsiveText size={"h14"} fontFamily={fonts.Montserrat_Bold}
@@ -266,7 +273,8 @@ const HomeScreen = (props) => {
                     marginTop={wp(4)} />
 
 
-                <ImageBackground source={{uri : mainNews?.topStories?.[0]?.mainMedia?.gallery?.url}} style={{ width: wp(88), height: wp(66),
+                <ImageBackground source={{uri : mainNews?.topStories?.[0]?.mainMedia?.gallery?.url}} 
+                style={{ width: wp(88), height: wp(66),
                  alignSelf: "center", marginTop: wp(2) }}
                     resizeMode='contain'>
                     <ImageBackground source={iconPath.darkRactangle} style={{ width: wp(88), height: wp(66),
@@ -281,13 +289,16 @@ const HomeScreen = (props) => {
 
 
                 <Pressable onPress={() => props.navigation.navigate("Podcasts")}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(3) }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center",
+                     paddingRight: wp(6), marginTop: wp(3) }}>
                         <HomeHeadings imageName={iconPath.PodcastsImage} textTitle={"Podcasts"}
                             marginTop={wp(.1)} />
-                        <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
+                        <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} 
+                        margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
                     </View>
                     <View style={[styles.boxWithShadow, {
-                                    backgroundColor: Colors.white, borderRadius: 8, paddingVertical: wp(2), marginHorizontal: wp(6), marginTop: wp(2),
+                                    backgroundColor: Colors.white, borderRadius: 8, paddingVertical: wp(2), 
+                                    marginHorizontal: wp(6), marginTop: wp(2),
                                     paddingLeft: wp(6), paddingRight: wp(3), marginBottom: wp(5)
                                 }]}>
                     <FlatList

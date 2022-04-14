@@ -164,4 +164,6 @@ const styles = StyleSheet.create({
     },
     picksoftheDayInner: { flexDirection: "row", alignItems: "center", paddingLeft: wp(1) },
     picksoftheDayOutter: { backgroundColor: Colors.white, marginTop: wp(5), paddingVertical: wp(3), paddingLeft: wp(2), borderRadius: 6, marginHorizontal: wp(6) }
+
+    
 })
