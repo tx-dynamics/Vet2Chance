@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native'
 export default function EventCard(props) {
     let navigation = useNavigation()
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("HomeStack" , {screen : "MatchesDetails"})}
+        <TouchableOpacity onPress={props.onPress}
         style={[styles.boxWithShadow, {
             backgroundColor: "#fff", borderRadius: 8,
             alignItems: "center", marginHorizontal: wp(3), marginTop: wp(4),
@@ -24,13 +24,13 @@ export default function EventCard(props) {
         }]}>
             <View style={{ flex: 1, alignItems: "center" }}>
                 <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} 
-                color={"#878484"}>{"12/02/2022 8:15PM"}</ResponsiveText>
+                color={"#878484"}>{props.dt}</ResponsiveText>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-between", width: "90%" }}>
                 <View style={{alignItems:"center"}}>
                     <Image 
-                     source={iconPath.TeamImage}
-                    //  source={props.Leftimg}
+                    //  source={iconPath.TeamImage}
+                     source={props.Leftimg}
                      style={{ height: 70, width: 70 }} resizeMode={"cover"} />
                     <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{props.LeftTeam}</ResponsiveText>
 
@@ -46,8 +46,8 @@ export default function EventCard(props) {
                 </View>
                 <View style={{alignItems:"center"}}>
                     <Image 
-                    source={iconPath.TeamImage}
-                    // source={props.Rightimg} 
+                    // source={iconPath.TeamImage}
+                    source={props.Rightimg} 
                     style={{ height: 70, width: 70 }} resizeMode={"cover"} />
                     <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>{props.RightTeam}</ResponsiveText>
 

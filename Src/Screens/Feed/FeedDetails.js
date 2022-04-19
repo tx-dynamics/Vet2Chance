@@ -27,7 +27,7 @@ const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetti
 const FeedScreen = (props) => {
     
     const items = props?.route?.params?.item;
-    console.log("item", items)
+    console.log("item", items?.mainMedia?.thumbnail?.url)
 
     return (
         <View style={styles.container}>

@@ -24,10 +24,10 @@ const HomeScreen = (props) => {
 
     const [
         filtersData = [
-        { id: "1", ImageName: iconPath.NFL, title: "football" },
+        { id: "1", ImageName: iconPath.NBA, title: "football" },
         { id: "2", ImageName: iconPath.NCAAF, title: "hockey" },
-        { id: "3", ImageName: iconPath.MLB, title: "basketball" },
-        { id: "4", ImageName: iconPath.NBA, title: "tennis" },
+        { id: "3", ImageName: iconPath.NFL, title: "basketball" },
+        { id: "4", ImageName: iconPath.MLB, title: "tennis" },
         { id: "5", ImageName: iconPath.NHL, title: "cricket" },
     ], setFiltersData] = useState();
     

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet,Text, FlatList, ActivityIndicator, Image, TouchableOpacity, ImageBackground, Pressable } from 'react-native'
+import { View, StyleSheet, FlatList, ActivityIndicator,Text, Image, TouchableOpacity, ImageBackground, Pressable } from 'react-native'
 import Header from '../../Components/Header';
 import ResponsiveText from '../../Components/RnText';
 import { Colors } from '../../Constants/Colors';
@@ -275,21 +275,21 @@ const country = [
  'Åland Islands': 'AX'}
 ]
 
-const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long"
-
-const HotMatches = (props) => {
-
-    const [selectedTab, setselectedTab] = useState('1')
-    const [isData, setData] = useState([]);
-    const [isLoading, setLoading] = useState(false);
+const Leagues = (props) => {
 
     const items = props?.route?.params?.item;
-    console.log("itemsss", items)
+    const name = props?.route?.params?.name;
+
+    console.log("items", items.Ccd, name)
+
+    const [isLoading, setLoading] = useState(false)
+    const [selectedTab, setselectedTab] = useState([])
+
 
     const getLeagues = () => {
         setLoading(true)
-        console.log(Colors.baseURL + '/leagues/v2/list?Category=' + items)
-        fetch(Colors.baseURL + '/leagues/v2/list?Category=' + items, {
+        console.log(Colors.baseURL + '/matches/v2/list-by-league?Category='+ name + '&Ccd=' + items?.Ccd)
+        fetch(Colors.baseURL + '/matches/v2/list-by-league?Category=' + name + '&Ccd=' + items?.Ccd , {
             method: 'GET',
             headers: {
                 'x-rapidapi-host': 'livescore6.p.rapidapi.com',
@@ -298,8 +298,8 @@ const HotMatches = (props) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.Ccg[0].Cnm)
-                setselectedTab(data.Ccg)
+                // console.log(data.Stages[0].Events[0] )
+                setselectedTab(data.Stages)
                 setLoading(false)
             })
             .catch(err => {
@@ -318,77 +318,17 @@ const HotMatches = (props) => {
         getLeagues()
     }, [])
 
-    // console.log(country[0]?.Afghanistan)
-
-    // console.log(selectedTab[0])
-
-
     return (
         <View style={styles.container}>
-            <Header midtitle title={items + " league"}
+            <Header midtitle title={items?.Cnm}
                 left LeftImage ImageName={iconPath.backIcon}
                 leftImageWidth={wp(4)} leftImageHeight={wp(4)}
                 leftPress={() => props.navigation.goBack()}
             />
-            {/* <View style={[styles.boxWithShadow, {
-                flexDirection: "row", paddingHorizontal: wp(14), justifyContent: "space-between", alignItems: "center",
-                backgroundColor: "#fff", paddingTop: wp(2.5)
-            }]}>
-                <Pressable onPress={() => setselectedTab('1')}
-                    style={{
-                        borderBottomWidth: selectedTab === '1' ? 3 : 0, borderBottomColor: Colors.red, paddingBottom: wp(1.5),
-                        width: wp(18), alignItems: "center"
-                    }}>
-                    {selectedTab === '1' ?
-                        <ResponsiveText size={"h16"} color={Colors.red} fontFamily={fonts.Montserrat_Bold}>{"PREVIEW"}</ResponsiveText>
-                        :
-                        <ResponsiveText size={"h16"} >{"PREVIEW"}</ResponsiveText>
-
-                    }
-                </Pressable>
-                <Pressable onPress={() => setselectedTab('2')}
-                    style={{
-                        borderBottomWidth: selectedTab === '2' ? 3 : 0, borderBottomColor: Colors.red, paddingBottom: wp(1.5),
-                        width: wp(18), alignItems: "center"
-                    }}>
-                    {selectedTab === '2' ?
-                        <ResponsiveText size={"h16"} color={Colors.red} fontFamily={fonts.Montserrat_Bold}>{"ODDS"}</ResponsiveText>
-                        :
-                        <ResponsiveText size={"h16"}>{"ODDS"}</ResponsiveText>
-                    }
-
-                </Pressable>
-                <Pressable onPress={() => setselectedTab('3')}
-                    style={{
-                        borderBottomWidth: selectedTab === '3' ? 3 : 0, borderBottomColor: Colors.red, paddingBottom: wp(1.5),
-                        width: wp(18), alignItems: "center"
-                    }}>
-                    {selectedTab === '3' ?
-                        <ResponsiveText size={"h16"} color={Colors.red} fontFamily={fonts.Montserrat_Bold}>{"STATS"}</ResponsiveText>
-                        :
-                        <ResponsiveText size={"h16"} >{"STATS"}</ResponsiveText>
-                    }
-
-                </Pressable>
-
-            </View> */}
-
-            {/* <View style={[styles.boxWithShadow, { backgroundColor: Colors.white, marginTop: wp(5), marginHorizontal: wp(3), paddingVertical: wp(2), paddingHorizontal: wp(5), borderRadius: 8 }]}>
-                <ResponsiveText size={"h7"} >{"Friday 6am on FOX"}</ResponsiveText>
-                <ResponsiveText size={"h7"} >{"Stadium Name\nAddress"}</ResponsiveText>
-            </View> */}
-
-            {/* <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
-                <HomeHeadings textTitle={"CONSENSUS ODDS"}
-                    marginLeft={wp(-5)}
-                    marginTop={wp(.1)} />
-                <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
-            </View> */}
-            {isLoading ? <ActivityIndicator size={"small"} color={Colors.red} />
-                :
+{isLoading ?  <ActivityIndicator size={"small"} color={Colors.red} /> :
                 <FlatList
                     data={selectedTab}
-                    keyExtractor={(item) => item?.Cid}
+                    keyExtractor={(item) => item?.Sid}
                     ListEmptyComponent={() => {
                         return (
                           <Text style={{ alignSelf: 'center', marginTop: 100 }}>No Record Found</Text>
@@ -396,11 +336,11 @@ const HotMatches = (props) => {
                       }}
                     renderItem={({ item, index }) => (
                         <TouchableOpacity
-                            onPress={() => props.navigation.navigate("Leagues", {item:item, name:items})}
+                            onPress={() => props.navigation.navigate("TeamMatches", {item:item})}
                             style={[styles.boxWithShadow, {
                                 backgroundColor: "#fff", borderRadius: 8,
                                 alignItems: "center", marginHorizontal: wp(3), marginTop: wp(4),
-                                paddingVertical: wp(2), paddingHorizontal: wp(3)
+                                paddingVertical: wp(2), paddingHorizontal: wp(3),
                             }]}>
 
                             <View style={{
@@ -409,43 +349,19 @@ const HotMatches = (props) => {
                             }}>
 
                                 <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>
-                                    {item?.Cnm}</ResponsiveText>
+                                    {item?.Sdn}</ResponsiveText>
                                     <CountryFlag isoCode={country[0].Pakistan} size={20} />
-                                    
-                                    {/* <Image
-                                        source={iconPath.TeamImage}
-                                        style={{ height: 70, width: 70 }} resizeMode={"cover"} /> */}
-                                        
+                                    {/* <CountryFlag isoCode={country[0]?.Afghanistan} size={20} /> */}                
                             </View>
 
                         </TouchableOpacity>
                     )} />
-            }
-            {/* <CountryFlag isoCode={country[0]?.Afghanistan} size={20} /> */}
-{/* 
-            <EventCard
-                    LeftTeam={"Imam"}
-                    RightTeam={"Imam"}
-                    LeagueName={"text"}
-                    LeftImage={iconPath.TeamImage}
-                    Rightimg={iconPath.TeamImage}
-                    /> */}
-
-
-
-            {/* <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
-                <HomeHeadings textTitle={"CONSENSUS PICKS"}
-                    marginLeft={wp(-5)}
-                    marginTop={wp(.1)} />
-                <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
-            </View> */}
-
-
-
+}
         </View>
     )
 }
-export default HotMatches;
+export default Leagues;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
