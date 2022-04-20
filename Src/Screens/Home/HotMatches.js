@@ -132,7 +132,7 @@ const country = [
  'Ireland': 'IE',
  'Isle of Man': 'IM',
  'Israel': 'IL',
- 'Italy': 'IT',
+ 'italy': 'IT',
  'Jamaica': 'JM',
  'Japan': 'JP',
  'Jersey': 'JE',
@@ -240,6 +240,7 @@ const country = [
  'Sweden': 'SE',
  'Switzerland': 'CH',
  'Syrian Arab Republic': 'SY',
+ 'Scotland' : 'SY',
  'Taiwan, Province of China': 'TW',
  'Tajikistan': 'TJ',
  'Tanzania, United Republic of': 'TZ',
@@ -257,8 +258,8 @@ const country = [
  'Uganda': 'UG',
  'Ukraine': 'UA',
  'United Arab Emirates': 'AE',
- 'United Kingdom': 'GB',
- 'United States': 'US',
+ 'England': 'GB',
+ 'USA': 'US',
  'United States Minor Outlying Islands': 'UM',
  'Uruguay': 'UY',
  'Uzbekistan': 'UZ',
@@ -410,8 +411,9 @@ const HotMatches = (props) => {
 
                                 <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>
                                     {item?.Cnm}</ResponsiveText>
-                                    <CountryFlag isoCode={country[0].Pakistan} size={20} />
-                                    
+                                    {/* <CountryFlag isoCode={country[0].item?.Cnm} size={20} /> */}
+                                    <CountryFlag isoCode={typeof country?.[0] === 'string' ? country[0].toLowerCase() : ''} size={20} />
+                                    {/* const result = typeof arr?.[0] === 'string' ? arr[0].toLowerCase() : ''; */}
                                     {/* <Image
                                         source={iconPath.TeamImage}
                                         style={{ height: 70, width: 70 }} resizeMode={"cover"} /> */}

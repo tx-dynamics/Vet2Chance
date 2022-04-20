@@ -25,6 +25,9 @@ const PlayData = [
 export default function PodcastsPlay(props) {
 
     const items = props?.route?.params?.item;
+    // const track3 = props?.route?.params?.track3;
+
+    // console.log("items", items, track3)
 
     const scrollX = useRef(new Animated.Value(0)).current;
     const [songIndex, setSongIndex] = useState(0);
@@ -78,6 +81,7 @@ export default function PodcastsPlay(props) {
     const start = async () => {
         // Set up the player
         await TrackPlayer.setupPlayer();  
+        // await TrackPlayer.add([items,track3])
         // Add a track to the queue
         await TrackPlayer.add({
             id: items?.id ? items?.id : null,

@@ -23,13 +23,18 @@ import { connect } from 'react-redux'
 import { iconPath } from '../../Constants/icon';
 import { fonts } from '../../Constants/Fonts';
 import ResponsiveText from '../../Components/RnText';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 
 const DATA = [
-  { id: "1", ImageName: iconPath.NFL1, title: "NFL" },
-  { id: "2", ImageName: iconPath.NCAAF1, title: "NCAAF" },
-  { id: "3", ImageName: iconPath.MLB1, title: "MLB" },
-  { id: "4", ImageName: iconPath.NBA1, title: "NBA" },
-];
+  { id: "1", ImageName: iconPath.NBA, title: "football" },
+  { id: "2", ImageName: iconPath.NCAAF, title: "hockey" },
+  { id: "3", ImageName: iconPath.NFL, title: "basketball" },
+  { id: "4", ImageName: iconPath.MLB, title: "tennis" },
+  { id: "5", ImageName: iconPath.NHL, title: "cricket" },
+]
+
 const DATA1 = [
   { id: "5", ImageName: iconPath.ChatIcon, title: "Chat" },
   // { id: "6", ImageName: iconPath.Leaderboard, title: "Leaderboard" },
@@ -42,12 +47,14 @@ class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      name : ''
     };
   }
 
+
   navigate = (item) => {
     if (item === "1") {
-      this.props.navigation.navigate("HomeStack" , {screen :"HotMatches"})
+      this.props.navigation.navigate("HomeStack" , {screen :"HotMatches",  })
       // this.props.navigation.navigate("HomeStack")
       // this.props.navigation.navigate('DrawerStack', { screen: 'TicketMenu' });
     }
@@ -106,7 +113,18 @@ class Content extends Component {
 
   }
 
-  LogoutFun = async () => {
+componentDidMount = () => {
+  firestore()
+    .collection('Users').doc(auth()?.currentUser?.uid)
+    .get().then(querySnapshot => {
+      console.log('snap', querySnapshot?._data?.fullName )
+      this.setState({name : querySnapshot?._data?.fullName});
+    });
+}
+
+// console.log("photo",photo)
+  
+LogoutFun = async () => {
   }
 
   render() {
@@ -114,7 +132,10 @@ class Content extends Component {
       <View style={{ flex: 1, backgroundColor: Colors.darkGreen, paddingHorizontal: wp(5) }}>
 
         <Image source={iconPath.Logo} style={{ width: "90%", height: wp(14), resizeMode: "contain", alignSelf: "center", marginTop: wp(7) }} />
-        <ResponsiveText size="h7" fontFamily={fonts.Montserrat_Bold} margin={[wp(2), 0, wp(1), 3]}>{"Anthony Jhons "}</ResponsiveText>
+        <ResponsiveText size="h7" fontFamily={fonts.Montserrat_Bold}
+         margin={[wp(2), 0, wp(1), 3]}>
+           {this?.state?.name}
+           </ResponsiveText>
         <View>
 
           <FlatList
@@ -124,9 +145,17 @@ class Content extends Component {
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
               <>
-                <TouchableOpacity onPress={() => this.navigate(item.id)} style={{ flexDirection: "row", alignItems: "center", paddingVertical: wp(6) }}>
-                  <Image source={item.ImageName} style={{ width: wp(7), height: wp(7), resizeMode: "contain" }} />
-                  <ResponsiveText size={"h8"} fontFamily={fonts.Montserrat_Bold} textAlign={"center"} margin={[wp(0), 0, wp(0), wp(3.5)]}>{item.title}</ResponsiveText>
+                <TouchableOpacity onPress={
+                  () => 
+                // this.navigate(item.id)
+                this.props.navigation.navigate("HotMatches", {item:item.title })
+              
+              }
+                 style={{ flexDirection: "row", alignItems: "center", paddingVertical: wp(6) }}>
+                  <Image source={item.ImageName} style={{ width: wp(7), 
+                    height: wp(7), resizeMode: "contain" }} />
+                  <ResponsiveText size={"h8"} fontFamily={fonts.Montserrat_Bold} 
+                  textAlign={"center"} margin={[wp(0), 0, wp(0), wp(3.5)]}>{item.title}</ResponsiveText>
                 </TouchableOpacity>
                 <View style={{ backgroundColor: "#DADADA", height: 1, width: "100%", }} />
               </>

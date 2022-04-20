@@ -206,8 +206,10 @@ const HomeScreen = (props) => {
                             horizontal={true}
                             keyExtractor={(item) => item?.id}
                             renderItem={({ item, index }) => (
-                                <Pressable onPress={() => props.navigation.navigate('OthersStack',
-                                {screen: 'PicksofTheDayDetails'} , {item:item})} >
+                                <Pressable 
+                                // onPress={() => props.navigation.navigate('OthersStack',
+                                // {screen: 'PicksofTheDayDetails'} , {item:item})}
+                                 >
                                 <Image source={{uri : item?.thumbnail}}
                                  style={{ width: wp(30), height: wp(40), resizeMode: "contain", 
                                  marginTop: wp(2), borderRadius: 10 }} />

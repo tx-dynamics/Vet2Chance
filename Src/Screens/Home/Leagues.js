@@ -350,7 +350,8 @@ const Leagues = (props) => {
 
                                 <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>
                                     {item?.Sdn}</ResponsiveText>
-                                    <CountryFlag isoCode={country[0].Pakistan} size={20} />
+                                    <CountryFlag isoCode={typeof country?.[0] === 'string' ? country[0].toLowerCase() : ''} size={20} />
+                                    
                                     {/* <CountryFlag isoCode={country[0]?.Afghanistan} size={20} /> */}                
                             </View>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, Image, ImageBackground, Pressable, TextInput } from 'react-native'
+import { View, StyleSheet, Image,ActivityIndicator,FlatList,Text,ImageBackground, Pressable, TextInput } from 'react-native'
 
 import Header from '../../Components/Header';
 import ResponsiveText from '../../Components/RnText';
@@ -12,24 +12,49 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Fonticon from '../../Constants/FontIcon';
 import HomeHeadings from '../Home/HomeHeadings'
 import EventCard from './EventCard'
-import InputField from '../../Components/InputField';
+import Snackbar from 'react-native-snackbar';
 
-
-const filterData = [
-    { id: "1", ImageName: iconPath.NFL, title: "NFL" },
-    { id: "2", ImageName: iconPath.NCAAF, title: "NCAAF" },
-    { id: "3", ImageName: iconPath.MLB, title: "MLB" },
-    { id: "4", ImageName: iconPath.NBA, title: "NBA" },
-    { id: "5", ImageName: iconPath.NHL, title: "NHL" },
-    { id: "6", ImageName: iconPath.addMore, title: "Add More" },
-]
 
 const EventsMainScreen = (props) => {
 
     const [searchBar, setSearchBar] = useState(false)
+    const [isLoading, setLoading] = useState(false)
+    const [selectedTab, setselectedTab] = useState([])
+
+
+    const getLeagues = () => {
+        setLoading(true)
+        console.log(Colors.baseURL + '/matches/v2/list-by-date?Category=football&Date=')
+        fetch(Colors.baseURL + '/matches/v2/list-by-date?Category=football&Date=',{
+            method: 'GET',
+            headers: {
+                'x-rapidapi-host': 'livescore6.p.rapidapi.com',
+                'x-rapidapi-key': '37f361a9f1msh0f867dbf2bcb62bp19ba82jsnc5b46c71f72f'
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // console.log("chk Data ",data?.Stages[0]?.Events[0])
+                setselectedTab(data.Stages)
+                // data?.Stages?.map((val) => setselectedTab(val?.Events) )
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error(err);
+                Snackbar.show({
+                    text: err,
+                    duration: Snackbar.LENGTH_LONG,
+                    backgroundColor: Colors.yellowColor
+                });
+                setLoading(false)
+            })
+        // .catch((error) => Alert.alert("Error In API!"))
+    }
 
     useEffect(() => {
+        getLeagues()
     }, [])
+
 
     return (
         <View style={styles.container}>
@@ -76,19 +101,39 @@ const EventsMainScreen = (props) => {
                 />
             </View> */}
 
-
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
-                <HomeHeadings imageName={iconPath.NFL2} textTitle={"NFL"}
+{/* 
+            <View style={{ flexDirection: "row", justifyContent: "space-between",
+             alignItems: "center", paddingRight: wp(6), marginTop: wp(5) }}>
+                <HomeHeadings imageName={iconPath.NFL2} 
+                textTitle={"NFL"}
                     marginTop={wp(.1)} />
-                {/* <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText> */}
-            </View>
+                <ResponsiveText size={"h7"} fontFamily={fonts.Montserrat} color={"#4DA1FF"} margin={[wp(.1), 0, 0, 0]}>{"View All"}</ResponsiveText>
+            </View> */}
 
             <ScrollView >
+            {isLoading ?  <ActivityIndicator size={"small"} color={Colors.red} /> :
+                <FlatList
+                    data={selectedTab}
+                    keyExtractor={(item) => item?.Eid}
+                    ListEmptyComponent={() => {
+                        return (
+                          <Text style={{ alignSelf: 'center', marginTop: 100 }}>No Record Found</Text>
+                        )
+                      }}
+                    renderItem={({ item, index }) => (
+                        <EventCard
+                        // onPress={() => props.navigation.navigate("HomeStack" , {screen : "MatchesDetails"})}
+                        LeftTeam={item?.Events[0]?.T1[0]?.Nm}
+                        RightTeam={item?.Events[0]?.T2[0]?.Nm}
+                        // LeagueName={items?.Ccd}
+                        // dt={"12/02/2022 8:15PM"}
+                        Leftimg={{uri: 'https://lsm-static-prod.livescore.com/medium/' + item?.Events[0]?.T1[0]?.Img}}
+                        Rightimg={{uri : 'https://lsm-static-prod.livescore.com/medium/' + item?.Events[0]?.T2[0]?.Img}}
+                    />
+                    )} />
+}
 
-                <EventCard />
-                <EventCard />
-                <EventCard />
-                <EventCard />
+                {/* <EventCard /> */}
                 <View style={{ paddingBottom: 15 }}></View>
             </ScrollView>
 
