@@ -27,7 +27,10 @@ export default function PodcastsPlay(props) {
     const items = props?.route?.params?.item;
     // const track3 = props?.route?.params?.track3;
 
-    // console.log("items", items, track3)
+    let index = props?.route?.params?.index;
+
+
+    // console.log("items", items[index]?.Name )
 
     const scrollX = useRef(new Animated.Value(0)).current;
     const [songIndex, setSongIndex] = useState(0);
@@ -36,11 +39,11 @@ export default function PodcastsPlay(props) {
     const [isPodCastData, setPodCastData] = useState([]);
     const playbackState = usePlaybackState();
     const progress = useProgress();
-
+    const [isChk, setChk] = useState(false)
 
     const podCastData = async () => {
         let res = await getAllOfCollection("Podcast")
-        console.log("restt", res.media)
+        // console.log("restt", res.media)
         setPodCastData(res.media)
     }
 
@@ -66,6 +69,10 @@ export default function PodcastsPlay(props) {
     
     const skipToNext = () => {
         TrackPlayer.skipToNext()
+        // index + 1
+        setChk(true)
+        // console.log(index + 1)
+        // togglePlayback()
         // songSlider.current.scrollToOffset({
         //     offset:(songIndex + 1) * width,
         // });
@@ -73,6 +80,12 @@ export default function PodcastsPlay(props) {
 
     const skipToPrevious = () => {
         TrackPlayer.skipToPrevious()
+        // index - 1
+        setChk(true)
+
+        // console.log(index - 1)
+
+        // togglePlayback()
         // songSlider.current.scrollToOffset({
         //     offset:(songIndex - 1) * width,
         // });
@@ -81,16 +94,16 @@ export default function PodcastsPlay(props) {
     const start = async () => {
         // Set up the player
         await TrackPlayer.setupPlayer();  
-        // await TrackPlayer.add([items,track3])
+        await TrackPlayer.add(items)
         // Add a track to the queue
-        await TrackPlayer.add({
-            id: items?.id ? items?.id : null,
-            // url: 'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_1MG.mp3',
-            url: items.url ? items.url : null,
-            title: items.title ? items.title : "Music Track",
-            artist: items.desc ? items.desc : "Playlist Song",
-            // artwork: playbackState === State.Playing ? require('../../../../assets/pause1.png') : require('../../../../assets/videoIcon.png')
-        });
+        // await TrackPlayer.add({
+        //     id: items?.id ? items?.id : null,
+        //     // url: 'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_1MG.mp3',
+        //     url: items.url ? items.url : null,
+        //     title: items.title ? items.title : "Music Track",
+        //     artist: items.desc ? items.desc : "Playlist Song",
+        //     // artwork: playbackState === State.Playing ? require('../../../../assets/pause1.png') : require('../../../../assets/videoIcon.png')
+        // });
 
         // Start playing it
         // await TrackPlayer.play();
@@ -139,17 +152,23 @@ export default function PodcastsPlay(props) {
                     <ResponsiveText size={"h7"} margin={[wp(2.5), 0, 0, 0]} fontFamily={fonts.Montserrat_Bold} color={"white"} >{"Relevant Podcasts"}</ResponsiveText>
                     <View style={{ flexDirection: "row" }}>
                         <View>
-                            <ResponsiveText size={"h7"} margin={[wp(2.5), wp(2.5), 0, 0]} fontFamily={fonts.Montserrat_Bold} color={"white"}>{"Posted By"}</ResponsiveText>
-                            <ResponsiveText size={"h9"} margin={[0, 0, 0, 0]} fontFamily={fonts.Montserrat} color={"white"}>{items?.Name}</ResponsiveText>
+                            <ResponsiveText size={"h7"} margin={[wp(2.5), wp(2.5), 0, 0]} 
+                            fontFamily={fonts.Montserrat_Bold}
+                             color={"white"}>{"Posted By"}</ResponsiveText>
+                            <ResponsiveText size={"h9"} margin={[0, 0, 0, 0]} 
+                            fontFamily={fonts.Montserrat} color={"white"}>{items[index]?.Name}</ResponsiveText>
                         </View>
                         <Image source={iconPath.podcastProd} style={{ width: 40, height: 40, resizeMode: "cover", borderRadius: 20 }} />
                     </View>
                 </View>
                 <View style={{ paddingHorizontal: 20 }}>
-                    <ResponsiveText size={"h8"} margin={[wp(2.5), 0, 0, 0]} fontFamily={fonts.Montserrat_Bold} color={"white"}>{"Description:"}</ResponsiveText>
+                    <ResponsiveText size={"h8"} margin={[wp(2.5), 0, 0, 0]} 
+                    fontFamily={fonts.Montserrat_Bold} color={"white"}>
+                        {"Description:"}</ResponsiveText>
                     <View style={{ width: "75%" }}>
-                        <ResponsiveText size={"h9"} margin={[wp(1.5), 0, 0, 0]} fontFamily={fonts.Montserrat} color={"white"}>
-                            {items?.desc}
+                        <ResponsiveText size={"h9"} margin={[wp(1.5), 0, 0, 0]} 
+                        fontFamily={fonts.Montserrat} color={"white"}>
+                            {items[index]?.desc}
                             </ResponsiveText>
                     </View>
                     <View style={{ alignSelf: "flex-start", marginTop: wp(4) }}>

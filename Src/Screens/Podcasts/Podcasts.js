@@ -105,7 +105,11 @@ const Podcasts = (props) => {
                                             alignItems: index % 2 === 0 ? "flex-end" : "center"
                                         }}>
                                             <TouchableOpacity
-                                             onPress={() => props.navigation.navigate("PodcastsPlay", {item:item})}>
+                                             onPress={() => 
+                                             props.navigation.navigate("PodcastsPlay", {item:isPodCastData, index : index})
+                                            // console.log(item)
+                                             
+                                             }>
                                                 <Image source={iconPath.playPodcast} style={{ width: wp(7.5),
                                                      height: wp(7.5), resizeMode: "contain", 
                                                      marginTop: wp(1) }} />
@@ -135,7 +139,11 @@ const Podcasts = (props) => {
                                         <View style={{ flexDirection: "row", justifyContent: "space-between",
                                          alignItems: "flex-end", flex: 1 }}>
                                             <TouchableOpacity 
-                                            onPress={() => props.navigation.navigate("PodcastsPlay", {item:item})}>
+                                            onPress={() =>
+                                            //  props.navigation.navigate("PodcastsPlay", {item:item})
+                                            props.navigation.navigate("PodcastsPlay", {item:isPodCastData, index:index})
+                                             
+                                             }>
                                                 <Image source={iconPath.playPodcast} style={{ width: wp(7.5), 
                                                     height: wp(7.5), resizeMode: "contain", marginBottom: wp(1) }} />
                                             </TouchableOpacity>

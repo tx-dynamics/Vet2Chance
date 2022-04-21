@@ -3,17 +3,18 @@ import { SafeAreaView } from 'react-native';
 import MainNav from './Src/Navigation/MainNav';
 
 import { Provider } from 'react-redux';
-import { store, persistor } from './Src/Redux/Store';
-import { PersistGate } from 'redux-persist/integration/react';
+import store from './Src/Redux/store';
+import {useSelector} from 'react-redux'
+
 // console.disableYellowBox = true;
 function App() {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      {/* <PersistGate persistor={persistor}> */}
         <SafeAreaView style={{ flex: 1 }}>
           <MainNav />
         </SafeAreaView>
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   );
 }

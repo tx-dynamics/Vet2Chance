@@ -11,9 +11,14 @@ import { getData } from '../../firebase/utility';
 import Apptext from '../../Components/Apptext';
 import auth from '@react-native-firebase/auth';
 import Snackbar from 'react-native-snackbar';
+import { setUser } from '../../Redux/actions/authAction';
+import { useDispatch } from "react-redux";
+
 
 
 const Login = (props) => {
+
+    let dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -62,8 +67,15 @@ const Login = (props) => {
                 let userinfo = await getData('Users', user.user.uid);
                 var user1 = auth().currentUser;
                 console.log(user1)
-                props.navigation.navigate("Drawer")
+                if (user1.uid) {
+                dispatch(setUser(true))                 
+                props.navigation.replace("Drawer")
                 setLoading(false)
+
+                }
+                else {
+                    console.log("Error")
+                }
                 // props.navigation.navigate("SignUp")
             })
             .catch(function (error) {

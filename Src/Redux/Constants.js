@@ -1,3 +1,0 @@
-export const SESSION = 'SESSION';
-export const SIGNUP_LOADING = 'SIGNUP_LOADING';
-export const SIGNUP_LOADING_FALSE = 'SIGNUP_LOADING_FALSE';

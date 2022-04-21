@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {useEffect, useState, Component } from 'react';
 import {
   View,
   Text,
@@ -25,6 +25,9 @@ import { fonts } from '../../Constants/Fonts';
 import ResponsiveText from '../../Components/RnText';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { setUser } from '../../Redux/actions/authAction';
+import { useDispatch } from "react-redux";
+import { useSelector } from 'react-redux';
 
 
 const DATA = [
@@ -43,30 +46,28 @@ const DATA1 = [
   { id: "9", ImageName: iconPath.Logout, title: "Logout" },
 ];
 
-class Content extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name : ''
-    };
-  }
-
+const Content = (props) => {
+  
+  const user = useSelector((state) => state.auth.user)
+    
+  const [name, setName] = useState('');
+  let dispatch = useDispatch();
 
   navigate = (item) => {
     if (item === "1") {
-      this.props.navigation.navigate("HomeStack" , {screen :"HotMatches",  })
+      props.navigation.navigate("HomeStack" , {screen :"HotMatches",  })
       // this.props.navigation.navigate("HomeStack")
       // this.props.navigation.navigate('DrawerStack', { screen: 'TicketMenu' });
     }
     else if (item === "2") {
-      this.props.navigation.navigate("HomeStack" , {screen :"HotMatches"})
+      props.navigation.navigate("HomeStack" , {screen :"HotMatches"})
 
       // this.props.navigation.navigate("BinStack")
       // this.props.navigation.navigate('BinStack', { screen: 'AddBin' });
 
     }
     else if (item === "3") {
-      this.props.navigation.navigate("HomeStack" , {screen :"HotMatches"})
+      props.navigation.navigate("HomeStack" , {screen :"HotMatches"})
 
       // this.props.navigation.navigate('DrawerStack', { screen: 'Store' });
     }
@@ -88,14 +89,14 @@ class Content extends Component {
       // this.props.navigation.navigate('DrawerStack', { screen: 'MemberShip' });
     }
     else if (item === "8") {
-      this.props.navigation.navigate('Podcasts');
+      props.navigation.navigate('Podcasts');
 
       // this.props.navigation.closeDrawer()
       // this.props.navigation.navigate('DrawerStack', { screen: 'Orders' });
     }
     else if (item === "9") {
-       this.props.navigation.navigate('AuthStack', { screen: 'Login' });
-
+      //  props.navigation.navigate('AuthStack', { screen: 'Login' });
+     this.logOut()
       // this.props.navigation.closeDrawer()
       // this.props.navigation.navigate('DrawerStack', { screen: 'Orders' });
     }
@@ -106,49 +107,58 @@ class Content extends Component {
 
   upperNavigation = (id) => {
     if (id === "3") {
-      this.props.navigation.navigate('DrawerStack', { screen: 'QrCode' });
+      props.navigation.navigate('DrawerStack', { screen: 'QrCode' });
     } else if (id === "4") {
-      this.props.navigation.navigate('DrawerStack', { screen: 'Store' });
+      props.navigation.navigate('DrawerStack', { screen: 'Store' });
     }
 
   }
 
-componentDidMount = () => {
-  firestore()
+  useEffect(() => {
+
+    firestore()
     .collection('Users').doc(auth()?.currentUser?.uid)
     .get().then(querySnapshot => {
       console.log('snap', querySnapshot?._data?.fullName )
-      this.setState({name : querySnapshot?._data?.fullName});
+      setName(querySnapshot?._data?.fullName);
+    });
+
+
+  },[])
+  
+  logOut = () => {
+    auth().signOut()
+    .then(() => {
+      dispatch(setUser(false))
+      console.log("user",user)
+    },
+    (error) => {
+      console.alert(error.message);
     });
 }
 
-// console.log("photo",photo)
-  
-LogoutFun = async () => {
-  }
-
-  render() {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.darkGreen, paddingHorizontal: wp(5) }}>
 
-        <Image source={iconPath.Logo} style={{ width: "90%", height: wp(14), resizeMode: "contain", alignSelf: "center", marginTop: wp(7) }} />
+        <Image source={iconPath.Logo} style={{ width: "90%", height: wp(14),
+        resizeMode: "contain", alignSelf: "center", marginTop: wp(7) }} />
         <ResponsiveText size="h7" fontFamily={fonts.Montserrat_Bold}
          margin={[wp(2), 0, wp(1), 3]}>
-           {this?.state?.name}
+           {name}
            </ResponsiveText>
         <View>
 
           <FlatList
             data={DATA}
             keyExtractor={(item, index) => index.toString()}
-            extraData={this.state}
+            // extraData={this.state}
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
               <>
                 <TouchableOpacity onPress={
                   () => 
                 // this.navigate(item.id)
-                this.props.navigation.navigate("HotMatches", {item:item.title })
+                props.navigation.navigate("HotMatches", {item:item.title })
               
               }
                  style={{ flexDirection: "row", alignItems: "center", paddingVertical: wp(6) }}>
@@ -163,31 +173,23 @@ LogoutFun = async () => {
         </View>
 
         {DATA1.map((item, index) =>
-          <TouchableOpacity onPress={() => this.navigate(item.id)} style={{ flexDirection: "row", alignItems: "center", paddingVertical: wp(4) }}>
-            <Image source={item.ImageName} style={{ width: wp(4.5), height: wp(4.5), resizeMode: "contain" }} />
-            <ResponsiveText size={"h8"} fontFamily={fonts.Montserrat_Bold} textAlign={"center"} margin={[wp(0), 0, wp(0), wp(5.8)]}>{item.title}</ResponsiveText>
+          <TouchableOpacity onPress={() => navigate(item.id)}
+           style={{ flexDirection: "row", alignItems: "center", paddingVertical: wp(4) }}>
+            <Image source={item.ImageName} style={{ width: wp(4.5), height: wp(4.5),
+               resizeMode: "contain" }} />
+            <ResponsiveText size={"h8"} fontFamily={fonts.Montserrat_Bold} 
+            textAlign={"center"} margin={[wp(0), 0, wp(0), wp(5.8)]}>{item.title}</ResponsiveText>
           </TouchableOpacity>
         )}
 
       </View>
     );
-  }
+  
 }
 
-const mapStateToProps = (state) => {
-  return {
-    LoginType: state.AuthReducer.LoginType,
-  }
-}
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    SessionMaintain: (userData) => dispatch(SetSession(userData)),
-    ChangeRoute: (userData) => dispatch(ChangeProfileRoute(userData)),
-  }
-}
+export default Content;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,

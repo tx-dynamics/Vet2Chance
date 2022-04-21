@@ -21,7 +21,7 @@ const filterData = [
     { id: "5", ImageName: iconPath.NHL, title: "NHL" },
     { id: "6", ImageName: iconPath.addMore, title: "Add More" },
 ]
-const country = [
+const country = 
 {'Afghanistan': 'AF',
  'Albania': 'AL',
  'Algeria': 'DZ',
@@ -274,7 +274,9 @@ const country = [
  'Zambia': 'ZM',
  'Zimbabwe': 'ZW',
  'Åland Islands': 'AX'}
-]
+
+//  const myObj = JSON.parse(country);
+console.log(country.Afghanistan )
 
 const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long"
 
@@ -319,7 +321,7 @@ const HotMatches = (props) => {
         getLeagues()
     }, [])
 
-    // console.log(country[0]?.Afghanistan)
+    console.log(country.Afghanistan )
 
     // console.log(selectedTab[0])
 
@@ -411,12 +413,16 @@ const HotMatches = (props) => {
 
                                 <ResponsiveText size={"h16"} fontFamily={fonts.Montserrat} color={"#000000"}>
                                     {item?.Cnm}</ResponsiveText>
+                                    {/* <CountryFlag isoCode={country?.item?.Cnm} size={20} /> */}
+                                    {/* <CountryFlag 
+                                    isoCode={typeof country?.[0] === 'string' ? country[0].toLowerCase() : ''} 
+                                    size={20} /> */}
+                                    
                                     {/* <CountryFlag isoCode={country[0].item?.Cnm} size={20} /> */}
-                                    <CountryFlag isoCode={typeof country?.[0] === 'string' ? country[0].toLowerCase() : ''} size={20} />
-                                    {/* const result = typeof arr?.[0] === 'string' ? arr[0].toLowerCase() : ''; */}
-                                    {/* <Image
-                                        source={iconPath.TeamImage}
-                                        style={{ height: 70, width: 70 }} resizeMode={"cover"} /> */}
+                                    
+                                    <Image
+                                        source={item?.Ccd ? { uri: 'https://static.livescore.com/i2/fh/' + item?.Ccd + '.jpg'  } : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Flag_of_Cyprus.svg/2560px-Flag_of_Cyprus.svg.png'}
+                                        style={{ height: 20, width: 30 }} resizeMode={"cover"} />
                                         
                             </View>
 
