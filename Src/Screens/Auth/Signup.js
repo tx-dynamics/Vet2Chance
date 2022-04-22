@@ -10,6 +10,7 @@ import { Colors } from '../../Constants/Colors';
 import { saveData } from '../../firebase/utility';
 import auth from '@react-native-firebase/auth';
 import Apptext from '../../Components/Apptext';
+import Swiper from 'react-native-swiper';
 
 
 const Signup = (props) => {
@@ -41,7 +42,7 @@ const Signup = (props) => {
         }
         else {
             console.log("Sign Up Called")
-            props.navigation.navigate("CompleteProfile", {email, password, isEnabled})
+            props.navigation.navigate("CompleteProfile", {email, password})
             // signUp(email, password, isEnabled)
         }
     }
@@ -69,6 +70,7 @@ const Signup = (props) => {
                 <InputField
                     keyboardType="email-address"
                     placeholder={"Email"}
+                    placeholderTextColor={"lightgray"}
                     secureText
                     RightImage
                     newImage={iconPath.tick}
@@ -98,7 +100,7 @@ const Signup = (props) => {
                 <InputField
                     // keyboardType="email-address"
                     placeholder={"●●●●●●"}
-                    placeholderTextColor={Colors.red}
+                    placeholderTextColor={"lightgray"}
                     secureText
                     secureTextEntry={true}
                     RightImage
@@ -121,8 +123,10 @@ const Signup = (props) => {
                         Password should be at least 6 characters</Apptext>
                 </View> : null}
 
-                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: wp(3), paddingHorizontal: wp(4), alignItems: "center" }}>
-                    <ResponsiveText size="h9" textAlign={"center"} margin={[0, 0, 0, 0]}>{"Private Profile"}</ResponsiveText>
+                {/* <View style={{ flexDirection: "row", justifyContent: "space-between",
+                 marginTop: wp(3), paddingHorizontal: wp(4), alignItems: "center" }}>
+                    <ResponsiveText size="h9" textAlign={"center"} margin={[0, 0, 0, 0]}>
+                    {"Private Profile"}</ResponsiveText>
                     <Switch
                         style={{ transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
                         trackColor={{ false: "#767577", true: Colors.red }}
@@ -131,7 +135,7 @@ const Signup = (props) => {
                         onValueChange={() => setIsEnabled(!isEnabled)}
                         value={isEnabled}
                     />
-                </View>
+                </View> */}
                 <ResponsiveText size="h9" textAlign={"center"} margin={[wp(6), 0, 0, 0]}>{"1 / 2"}</ResponsiveText>
                 <View style={{ paddingHorizontal: wp(22) }}>
                     <Button
@@ -150,13 +154,57 @@ const Signup = (props) => {
                         <ResponsiveText size="h9" textAlign={"center"} color={Colors.red}>{" Click here to login."}</ResponsiveText>
                     </TouchableOpacity>
                 </View>
+                <View style={{height:wp(5)}}>
 
+                </View>
 
             </View>
-            <View style={{ flex: .21, backgroundColor: Colors.red, width: "100%", paddingVertical: wp(5), paddingHorizontal: wp(10) }}>
+            {/* <View style={{ flex: .21, backgroundColor: Colors.red, width: "100%", paddingVertical: wp(5), paddingHorizontal: wp(10) }}>
                 <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading"}</ResponsiveText>
                 <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>{"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+                
                 <Image source={iconPath.dots} style={{ width: wp(20), height: wp(5), resizeMode: "contain", alignSelf: "center", }}></Image>
+            </View> */}
+            <View style={{
+                flex: .21, backgroundColor: Colors.red, width: "100%",
+                paddingVertical: wp(5), paddingHorizontal: wp(10)
+            }}>
+                <Swiper 
+                 style={styles.wrapper}
+                 showsButtons={false}
+                 dotColor={"white"}
+                 loop={true}
+                 autoplay={true}
+                 activeDotColor={"white"}
+                 activeDotStyle={{height:15, width:15, borderRadius:20}}
+                 >
+                    <View style={styles.slide1}>
+                    <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
+                    color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading"}</ResponsiveText>
+                    <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} 
+                    margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
+                        {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+                   
+                    </View>
+                    <View style={styles.slide2}>
+                    <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
+                    color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading 2"}</ResponsiveText>
+                    <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} 
+                    margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
+                        {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+                   
+                    </View>
+
+                    <View style={styles.slide3}>
+                    <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
+                    color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading 2"}</ResponsiveText>
+                    <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} 
+                    margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
+                        {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+                   
+                    </View>
+                    
+                </Swiper>
             </View>
 
         </ScrollView>
@@ -171,5 +219,31 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         flexGrow: 1
+    },
+    wrapper:{
+        height:wp(40),
+        width:'100%',
+    },
+    slide1: {
+        // flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    slide2: {
+        // flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: '#97CAE5'
+    },
+    slide3: {
+        // flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: '#92BBD9'
+    },
+    text: {
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold'
     }
 })

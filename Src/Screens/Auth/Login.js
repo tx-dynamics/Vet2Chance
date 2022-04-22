@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Image, StatusBar, ScrollView,ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Image, StatusBar, ScrollView, ActivityIndicator } from 'react-native'
 import ResponsiveText from '../../Components/RnText';
 import { fonts } from '../../Constants/Fonts';
 import { iconPath } from '../../Constants/icon';
@@ -13,7 +13,7 @@ import auth from '@react-native-firebase/auth';
 import Snackbar from 'react-native-snackbar';
 import { setUser } from '../../Redux/actions/authAction';
 import { useDispatch } from "react-redux";
-
+import Swiper from 'react-native-swiper';
 
 
 const Login = (props) => {
@@ -68,9 +68,9 @@ const Login = (props) => {
                 var user1 = auth().currentUser;
                 console.log(user1)
                 if (user1.uid) {
-                dispatch(setUser(true))                 
-                props.navigation.replace("Drawer")
-                setLoading(false)
+                    dispatch(setUser(true))
+                    props.navigation.replace("Drawer")
+                    setLoading(false)
 
                 }
                 else {
@@ -109,8 +109,8 @@ const Login = (props) => {
                     Snackbar.show({
                         text: error.code,
                         duration: Snackbar.LENGTH_LONG,
-                        backgroundColor:Colors.yellowColor
-                      });
+                        backgroundColor: Colors.yellowColor
+                    });
                     // Alert.alert(error.code)
                 }
             });
@@ -125,6 +125,7 @@ const Login = (props) => {
                 <InputField
                     keyboardType="email-address"
                     placeholder={"Email"}
+                    placeholderTextColor={"lightgray"}
                     secureText
                     RightImage
                     newImage={iconPath.tick}
@@ -155,7 +156,7 @@ const Login = (props) => {
                 <InputField
                     // keyboardType="email-address"
                     placeholder={"●●●●●●"}
-                    placeholderTextColor={Colors.red}
+                    placeholderTextColor={"lightgray"}
                     secureText
                     secureTextEntry={true}
                     RightImage
@@ -177,25 +178,25 @@ const Login = (props) => {
                         The password is weak or the user enter invalid password.
                     </Apptext>
                 </View> : null}
-                
-            {isLoading ?
-                <ActivityIndicator size={"small"} color={Colors.red} />
-                :
-                
+
+                {isLoading ?
+                    <ActivityIndicator size={"small"} color={Colors.red} />
+                    :
+
+                    <View style={{ paddingHorizontal: wp(22) }}>
+                        <Button
+                            onPress={() =>
+                                checkValues()
+                            }
+                            Text={'Login'}
+                            marginTop={wp(15)}
+                            marginHorizontal={wp(20)}
+                            borderRadius={35}
+                            height={wp(12)}
+                        />
+                    </View>
+                }
                 <View style={{ paddingHorizontal: wp(22) }}>
-                    <Button
-                        onPress={() =>
-                            checkValues()
-                        }
-                        Text={'Login'}
-                        marginTop={wp(15)}
-                        marginHorizontal={wp(20)}
-                        borderRadius={35}
-                        height={wp(12)}
-                    />
-                </View>
-}
-            <View style={{ paddingHorizontal: wp(22) }}>
                     <Button
                         onPress={() => props.navigation.navigate("SignUp")}
                         Text={'Signup'}
@@ -208,12 +209,64 @@ const Login = (props) => {
                         backgroundColor={Colors.background}
                     />
                 </View>
-                
+                <View style={{ height: wp(7) }}>
+
+                </View>
             </View>
-            <View style={{ flex: .21, backgroundColor: Colors.red, width: "100%", paddingVertical: wp(5), paddingHorizontal: wp(10) }}>
-                <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading"}</ResponsiveText>
-                <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>{"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
-                <Image source={iconPath.dots} style={{ width: wp(20), height: wp(5), resizeMode: "contain", alignSelf: "center", }}></Image>
+            <View style={{
+                flex: .21, backgroundColor: Colors.red, width: "100%",
+                paddingVertical: wp(5), paddingHorizontal: wp(10)
+            }}>
+                <Swiper 
+                 style={styles.wrapper}
+                 showsButtons={false}
+                 dotColor={"white"}
+                 loop={true}
+                 autoplay={true}
+                 activeDotColor={"white"}
+                 activeDotStyle={{height:15, width:15, borderRadius:20}}
+                 >
+                    <View style={styles.slide1}>
+                    <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
+                    color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading"}</ResponsiveText>
+                    <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} 
+                    margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
+                        {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+                   
+                    </View>
+                    <View style={styles.slide2}>
+                    <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
+                    color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading 2"}</ResponsiveText>
+                    <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} 
+                    margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
+                        {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+                   
+                    </View>
+
+                    <View style={styles.slide3}>
+                    <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
+                    color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading 2"}</ResponsiveText>
+                    <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} 
+                    margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
+                        {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+                   
+                    </View>
+                    
+                    {/* <View style={styles.slide2}>
+                        <Text style={styles.text}>Beautiful</Text>
+                    </View>
+                    <View style={styles.slide3}>
+                        <Text style={styles.text}>Simple</Text>
+                    </View> */}
+                </Swiper>
+                {/* <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
+                color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading"}</ResponsiveText>
+                <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} margin={[wp(4), 0, wp(8), 0]}
+                 padding={0, wp(0), 0, wp(0)}>
+                     {"Any tips’ related text will go her it could be 2 or three screens"}
+                     </ResponsiveText>
+                <Image source={iconPath.dots} style={{ width: wp(20), height: wp(5), resizeMode: "contain", 
+                alignSelf: "center", }}></Image> */}
             </View>
 
         </ScrollView>
@@ -228,5 +281,31 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         flexGrow: 1
+    },
+    wrapper:{
+        height:wp(40),
+        width:'100%',
+    },
+    slide1: {
+        // flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    slide2: {
+        // flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: '#97CAE5'
+    },
+    slide3: {
+        // flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: '#92BBD9'
+    },
+    text: {
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold'
     }
 })

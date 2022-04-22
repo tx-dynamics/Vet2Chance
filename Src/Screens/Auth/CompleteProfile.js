@@ -37,20 +37,20 @@ const CompleteProfile = (props) => {
 
     const signUp = async () => {
 
-        if (name === "" && toggleCheckBox === false && items === "") {
+        if (name === "" && toggleCheckBox === false) {
             setNameChk(true)
-            setItemsChk(true)
+            // setItemsChk(true)
             setTick(true)
         }
         else if (name === "") {
             setNameChk(true)
             console.log("name error")
         }
-        else if (items === "") {
-            setItemsChk(true)
-            console.log("items error")
+        // else if (items === "") {
+        //     setItemsChk(true)
+        //     console.log("items error")
 
-        }
+        // }
         else if (toggleCheckBox === false) {
             setTick(true)
             console.log("Tick error")
@@ -65,9 +65,9 @@ const CompleteProfile = (props) => {
                     let Details = {
                         email: dat?.email,
                         fullName: name,
-                        Region: items,
+                        // Region: items,
                         Terms: toggleCheckBox,
-                        isPrivate: dat?.isEnabled,
+                        // isPrivate: dat?.isEnabled,
                     };
 
                     console.log(Details)
@@ -124,7 +124,7 @@ const CompleteProfile = (props) => {
                         Please Enter Name</Apptext>
                 </View> : null}
                 <View></View>
-                <DropDownPicker
+                {/* <DropDownPicker
                     open={open}
                     value={value}
                     items={items}
@@ -151,7 +151,7 @@ const CompleteProfile = (props) => {
                     arrowColor={Colors.red}
                     activeLabelStyle={{ color: Colors.red }}
                     selectedLabelStyle={{ color: Colors.red }}
-                />
+                /> */}
                 {/* <InputField
                     keyboardType="email-address"
                     placeholder={"Select a Region*"}
