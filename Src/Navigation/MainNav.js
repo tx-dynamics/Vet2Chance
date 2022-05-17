@@ -22,71 +22,71 @@ const Stack = createNativeStackNavigator();
 function MainNav(props) {
 
     // const isLogin = useSelector(state => state.AuthReducer.isLogin);
+    const user = useSelector(state => state.AuthReducer.user)
 
-    useEffect(() => { setTimeout(() => { setTimePassed(true) }, 2000) })
+    useEffect(() => {
+        setTimeout(() => { setTimePassed(true) }, 2000)
+        console.log("userValue", (user))
+
+    })
     const [timePassed, setTimePassed] = useState(false);
     //let user 
     //console.log("chkk", user)
     //try{  
-     const user = useSelector(state => state.Auth.user)
     //}catch(errors) {
-      //  console.log("OKKK",errors)
-        //  Block of code to handle errors
-     // }
-    
-    //console.log("chkk", user)
+    //  console.log("OKKK",errors)
+    //  Block of code to handle errors
+    // }
 
-    if (user !== false) {
-        return (
-            <>
-                <StatusBar backgroundColor={Colors.white}
-                    barStyle={'dark-content'} />
-                {!timePassed ?
-                    <Splash />
-                    :
-                    <NavigationContainer
-                    // theme={AppTheme}
-                    >
-                        <Stack.Navigator screenOptions={{ headerShown: false }}>
-                            
-                            {/* <Stack.Screen name="AuthStack" component={AuthStack} /> */}
-                            <Stack.Screen name="Drawer" component={Drawer} />
-                            <Stack.Screen name="OthersStack" component={OthersStack} />
-                            {/* <Stack.Screen name="DrawerStack" component={DrawerStack} /> */}
-                            {/* {isLogin ?
-                                <>
-                                    <Stack.Screen name="Drawer" component={Drawer} />
-                                </>
-                                :
-                                <Stack.Screen name="AuthStack" component={AuthStack} />
-                            } */}
-                        </Stack.Navigator>
-                    </NavigationContainer>
-                }
-            </>
-        );
-    }
-    else {
-        return (
-            <>
-                <StatusBar backgroundColor={Colors.white}
-                    barStyle={'dark-content'} />
-                {!timePassed ?
-                    <Splash />
-                    :
-                    <NavigationContainer
-                    >
-                        <Stack.Navigator screenOptions={{ headerShown: false }}>
-                            
+
+    // if (user !== false) {
+    return (
+        <>
+            <StatusBar backgroundColor={Colors.white}
+                barStyle={'dark-content'} />
+            {!timePassed ?
+                <Splash />
+                :
+                <NavigationContainer
+                // theme={AppTheme}
+                >
+                    <Stack.Navigator screenOptions={{ headerShown: false }}>
+                        {user ?
+                            <>
+                                <Stack.Screen name="Drawer" component={Drawer} />
+                                <Stack.Screen name="OthersStack" component={OthersStack} />
+                            </>
+                            :
                             <Stack.Screen name="AuthStack" component={AuthStack} />
-                            
-                        </Stack.Navigator>
-                    </NavigationContainer>
-                }
-            </>
-        );
-    }
 
-    
+                        }
+                    </Stack.Navigator>
+                </NavigationContainer>
+            }
+        </>
+    );
+    // }
+    // else {
+    //     return (
+    //         <>
+    //             <StatusBar backgroundColor={Colors.white}
+    //                 barStyle={'dark-content'} />
+    //             {!timePassed ?
+    //                 <Splash />
+    //                 :
+    //                 <NavigationContainer
+    //                 >
+    //                     <Stack.Navigator screenOptions={{ headerShown: false }}>
+
+    //                         <Stack.Screen name="AuthStack" component={AuthStack} />
+
+    //                     </Stack.Navigator>
+    //                 </NavigationContainer>
+    //             }
+    //         </>
+    //     );
+    // }
+
+
 }
 export default MainNav;

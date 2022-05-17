@@ -51,7 +51,7 @@ const Content = (props) => {
   //let user 
   //console.log("chkk", user)
   //try{  
-   const user = useSelector((state) => state.auth.user)
+   const user = useSelector(state => state.AuthReducer.user)
   //}catch(errors) {
     //  console.log("OKKK",errors)
       //  Block of code to handle errors
