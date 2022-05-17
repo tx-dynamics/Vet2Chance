@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#fff',
-        fontSize: 30,
+        fontSize: 29,
         fontWeight: 'bold'
     }
 })

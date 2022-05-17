@@ -10,7 +10,9 @@ const Splash = () => {
             <StatusBar backgroundColor={"#D4C739"} barStyle={'dark-content'} />
             <View style={styles.container}>
                 <View style={[styles.triangleCorner]} />
-                <Image source={iconPath.Logo} style={{ width: wp(88), height: wp(75), resizeMode: "contain" }}></Image>
+                <Image source={iconPath.Logo} 
+                style={{ width: wp(88),
+                     height: wp(75), resizeMode: "contain" }}></Image>
             </View>
         </>
     )
