@@ -1,10 +1,10 @@
 
 const Poppins = "Poppins";
-const Poppins_Light = "Poppins_Light";
-const Poppins_SemiBold = "Poppins_SemiBold";
-const Poppins_Medium = "Poppins_Medium";
-const Poppins_Bold = "Poppins_Bold";
-const Poppins_ExtraBold = "Poppins_ExtraBold";
+const Poppins_Light = "Poppins-Light";
+const Poppins_SemiBold = "Poppins-SemiBold";
+const Poppins_Medium = "Poppins-Medium";
+const Poppins_Bold = "Poppins-Bold";
+const Poppins_ExtraBold = "Poppins-ExtraBold";
 
 const Roboto = "Roboto";
 const Roboto_Bold = "Roboto_Bold";

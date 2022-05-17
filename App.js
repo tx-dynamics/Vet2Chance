@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native';
 import MainNav from './Src/Navigation/MainNav';
 
 import { Provider } from 'react-redux';
-import store from './Src/Redux/store';
+import store from './Src/Redux/Store';
 import {useSelector} from 'react-redux'
 
 // console.disableYellowBox = true;

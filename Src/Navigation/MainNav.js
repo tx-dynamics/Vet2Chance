@@ -25,10 +25,16 @@ function MainNav(props) {
 
     useEffect(() => { setTimeout(() => { setTimePassed(true) }, 2000) })
     const [timePassed, setTimePassed] = useState(false);
-
+    //let user 
+    //console.log("chkk", user)
+    //try{  
+     const user = useSelector(state => state.Auth.user)
+    //}catch(errors) {
+      //  console.log("OKKK",errors)
+        //  Block of code to handle errors
+     // }
     
-    const user = useSelector((state) => state.auth.user)
-    console.log("chkk", user)
+    //console.log("chkk", user)
 
     if (user !== false) {
         return (

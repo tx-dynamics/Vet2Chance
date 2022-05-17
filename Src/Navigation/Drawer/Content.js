@@ -48,7 +48,15 @@ const DATA1 = [
 
 const Content = (props) => {
   
-  const user = useSelector((state) => state.auth.user)
+  //let user 
+  //console.log("chkk", user)
+  //try{  
+   const user = useSelector((state) => state.auth.user)
+  //}catch(errors) {
+    //  console.log("OKKK",errors)
+      //  Block of code to handle errors
+    //}
+  //const user = useSelector((state) => state.auth.user)
     
   const [name, setName] = useState('');
   let dispatch = useDispatch();
@@ -133,7 +141,7 @@ const Content = (props) => {
       console.log("user",user)
     },
     (error) => {
-      console.alert(error.message);
+      console.log(error.message);
     });
 }
 
