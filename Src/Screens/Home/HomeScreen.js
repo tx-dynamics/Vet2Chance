@@ -69,8 +69,8 @@ const HomeScreen = (props) => {
     // }
 
     const getLeagues = async () => {
-
-        fetch(Colors.baseURL + '/matches/v2/list-by-league?Category=football&Ccd=champions-league&Scd=group-b', {
+try {
+      fetch(Colors.baseURL + '/matches/v2/list-by-league?Category=football&Ccd=champions-league&Scd=group-b', {
             method: 'GET',
             headers: {
                 'x-rapidapi-host': 'livescore6.p.rapidapi.com',
@@ -79,17 +79,21 @@ const HomeScreen = (props) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log("stages",data?.Stages[0]?.Events[0]?.MD[15]?.allowedCountries[0])
-                setMatchesData(data?.Stages[0]?.Events)
+                //console.log("stages",data?.Stages[0]?.Events[0]?.MD[15]?.allowedCountries[0])
+                //setMatchesData(data?.Stages[0]?.Events)
             })
             .catch(err => {
-                console.error(err);
+                console.log("PAK",err);
                 Snackbar.show({
-                    text: err,
-                    duration: Snackbar.LENGTH_LONG,
+                    text: "App is not responding at that time ",
+                   duration: Snackbar.LENGTH_LONG,
                     backgroundColor: Colors.yellowColor
                 });
             })
+} catch (error) {
+    console.log("PAK",error);
+}
+      
         // .catch((error) => Alert.alert("Error In API!"))
     }
 
@@ -111,7 +115,7 @@ const HomeScreen = (props) => {
             .catch(err => {
                 console.error(err);
                 Snackbar.show({
-                    text: err,
+                    text:"App is not responding at that time ",
                     duration: Snackbar.LENGTH_LONG,
                     backgroundColor: Colors.yellowColor
                 });
@@ -136,7 +140,6 @@ const HomeScreen = (props) => {
         picksData()
         getNews()
         podCastData()
-
     }, [])
 
     return (
