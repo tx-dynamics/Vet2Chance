@@ -18,6 +18,7 @@ import {
     getFirestore
   } from "@react-native-firebase/firestore";
 import { getAllOfCollection } from '../../firebase/utility';
+import firestore from '@react-native-firebase/firestore';
 
 // const filterData = [
 //     { id: "1", ImageName: iconPath.FootballImage, title: "NFL" },
@@ -39,16 +40,21 @@ const FeedScreen = (props) => {
     // const db = getFirestore();
 
     const getArticles = async() => {
-        let list = []
-        const querySnapshot = await getDocs(collection(db, "articles"))
-        console.log("query", querySnapshot)
-        querySnapshot.forEach((doc) => {
-          let data = doc.data()
-          data['id'] = doc.id
-          list.push(data)
-          console.log("list", list)
-        });
-        return list
+            const snapshot = await firestore().collection('articles').get()
+            return snapshot?.docs?.map(doc =>
+                 doc?.data(),
+                 console.log("doc",doc?.data())
+                 );
+        
+        // let list = []
+        // const querySnapshot = await getAllOfCollection("articles")
+        // console.log("query", querySnapshot)
+        // querySnapshot.forEach((doc) => {
+        //   let data = doc?.data()
+          
+        //   console.log("list", data)
+        // });
+        // return list
     }
 
     const getNews = async () => {
