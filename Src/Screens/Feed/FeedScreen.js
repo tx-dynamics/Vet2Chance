@@ -12,7 +12,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Svg, { Text } from "react-native-svg";
 import Fonticon from '../../Constants/FontIcon';
 import Snackbar from 'react-native-snackbar';
-
+import {
+    getDocs,
+    collection,
+    getFirestore
+  } from "@react-native-firebase/firestore";
+import { getAllOfCollection } from '../../firebase/utility';
 
 // const filterData = [
 //     { id: "1", ImageName: iconPath.FootballImage, title: "NFL" },
@@ -31,6 +36,20 @@ const FeedScreen = (props) => {
 
     const [newsData, setNewsData] = useState([]);
     const [isLoading, setLoading] = useState(false)
+    // const db = getFirestore();
+
+    const getArticles = async() => {
+        let list = []
+        const querySnapshot = await getDocs(collection(db, "articles"))
+        console.log("query", querySnapshot)
+        querySnapshot.forEach((doc) => {
+          let data = doc.data()
+          data['id'] = doc.id
+          list.push(data)
+          console.log("list", list)
+        });
+        return list
+    }
 
     const getNews = async () => {
         setLoading(true)
@@ -48,7 +67,7 @@ const FeedScreen = (props) => {
                 setLoading(false)
             })
             .catch(err => {
-                console.error(err);
+                // console.error(err);
                 Snackbar.show({
                     text: err,
                     duration: Snackbar.LENGTH_LONG,
@@ -61,6 +80,7 @@ const FeedScreen = (props) => {
     
     useEffect(() => {
         getNews()
+        // getArticles()
     },[])
 
     if (isLoading === true) {

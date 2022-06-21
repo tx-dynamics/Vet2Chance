@@ -29,6 +29,8 @@ const Login = (props) => {
     const [badFormat, setBadFormat] = useState(false);
     const [noUser, setNoUser] = useState(false);
     const [isLoading, setLoading] = useState(false);
+    const [isBlock, setBlock] = useState(false);
+
 
 
     const checkValues = () => {
@@ -68,9 +70,18 @@ const Login = (props) => {
                 var user1 = auth().currentUser;
                 console.log(user1)
                 if (user1.uid) {
-                    dispatch(setUser(true))
-                    props.navigation.replace("Drawer")
-                    setLoading(false)
+                    console.log("users", userinfo?.userBlocked)
+                    if (userinfo.userBlocked === true) {
+                        console.log("Not allowed")
+                        setLoading(false)
+                        setBlock(true)
+                    }
+                    else {
+                        dispatch(setUser(true))
+                        props.navigation.replace("Drawer")
+                        setLoading(false)
+                    }
+
 
                 }
                 else {
@@ -179,6 +190,14 @@ const Login = (props) => {
                     </Apptext>
                 </View> : null}
 
+                {isBlock ?
+                <View style={{ marginHorizontal: wp(5), marginTop: wp(2) }}>
+                    <Apptext style={{ fontSize: 10, color: "red" }}>
+                        Your Account has been Blocked
+                    </Apptext>
+                </View>
+                    : null
+                }
                 {isLoading ?
                     <ActivityIndicator size={"small"} color={Colors.red} />
                     :
@@ -217,41 +236,41 @@ const Login = (props) => {
                 flex: .21, backgroundColor: Colors.red, width: "100%",
                 paddingVertical: wp(5), paddingHorizontal: wp(10)
             }}>
-                <Swiper 
-                 style={styles.wrapper}
-                 showsButtons={false}
-                 dotColor={"white"}
-                 loop={true}
-                 autoplay={true}
-                 activeDotColor={"white"}
-                 activeDotStyle={{height:15, width:15, borderRadius:20}}
-                 >
+                <Swiper
+                    style={styles.wrapper}
+                    showsButtons={false}
+                    dotColor={"white"}
+                    loop={true}
+                    autoplay={true}
+                    activeDotColor={"white"}
+                    activeDotStyle={{ height: 15, width: 15, borderRadius: 20 }}
+                >
                     <View style={styles.slide1}>
-                    <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
-                    color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading"}</ResponsiveText>
-                    <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} 
-                    margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
-                        {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
-                   
+                        <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold}
+                            color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading"}</ResponsiveText>
+                        <ResponsiveText size="h9" color={"#fff"} textAlign={"center"}
+                            margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
+                            {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+
                     </View>
                     <View style={styles.slide2}>
-                    <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
-                    color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading 2"}</ResponsiveText>
-                    <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} 
-                    margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
-                        {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
-                   
+                        <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold}
+                            color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading 2"}</ResponsiveText>
+                        <ResponsiveText size="h9" color={"#fff"} textAlign={"center"}
+                            margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
+                            {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+
                     </View>
 
                     <View style={styles.slide3}>
-                    <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold} 
-                    color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading 2"}</ResponsiveText>
-                    <ResponsiveText size="h9" color={"#fff"} textAlign={"center"} 
-                    margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
-                        {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
-                   
+                        <ResponsiveText size="h4" fontFamily={fonts.Montserrat_Bold}
+                            color={"#fff"} textAlign={"center"} margin={[wp(5), 0, 0, 0]}>{"Heading 2"}</ResponsiveText>
+                        <ResponsiveText size="h9" color={"#fff"} textAlign={"center"}
+                            margin={[wp(4), 0, wp(8), 0]} padding={0, wp(0), 0, wp(0)}>
+                            {"Any tips’ related text will go her it could be 2 or three screens"}</ResponsiveText>
+
                     </View>
-                    
+
                     {/* <View style={styles.slide2}>
                         <Text style={styles.text}>Beautiful</Text>
                     </View>
@@ -282,9 +301,9 @@ const styles = StyleSheet.create({
     scrollContainer: {
         flexGrow: 1
     },
-    wrapper:{
-        height:wp(40),
-        width:'100%',
+    wrapper: {
+        height: wp(40),
+        width: '100%',
     },
     slide1: {
         // flex: 1,

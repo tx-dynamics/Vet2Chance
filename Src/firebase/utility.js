@@ -1,8 +1,10 @@
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
-import {ToastAndroid} from 'react-native';
-
+import { ToastAndroid } from 'react-native';
+import {
+  getDocs,
+} from "@react-native-firebase/firestore";
 
 export async function uploadImage(uri) {
   // console.log("Img Recvd", uri)
@@ -11,14 +13,14 @@ export async function uploadImage(uri) {
   // task.then(() => {                                 // 4
   //     console.log('Image uploaded to the bucket!');
   //     ToastAndroid.show("Image Uploaded Successfully", ToastAndroid.LONG);
-     
+
   // }).catch((e) => 
   // {
   //   ToastAndroid.show(e, ToastAndroid.LONG);
   //   console.log('uploading image error => ', e)
   // }
   // );
-  
+
 
 }
 
@@ -90,11 +92,22 @@ export async function getAllOfCollection(collection) {
   // dispatch(setCover(data))
 }
 
+// export async function getArticles(collection, doc1) {
+//   let list = []
+//   const querySnapshot = await getDocs(collection(db, "articles"))
+//   querySnapshot.forEach((doc) => {
+//     let data = doc.data()
+//     data['id'] = doc.id
+//     list.push(data)
+//     console.log("list", list)
+//   });
+//   return list
+// }
 export async function getListing(collection, doc1) {
   // console.log(collection, doc1)
   let data = await firestore().collection(collection).doc(doc1).get().then(function (doc) {
     if (doc.exists) {
-      return doc.data() ;
+      return doc.data();
     } else {
       return false;
     }
@@ -108,9 +121,9 @@ export async function getFvrtsListing(collection, doc1) {
   let data = [];
   await firestore().collection(collection).doc(doc1).get().then(function (doc) {
     if (doc.exists) {
-     doc.data().media.forEach(function(doc) {
-      data.push(doc)
-     
+      doc.data().media.forEach(function (doc) {
+        data.push(doc)
+
       })
     } else {
       return false;
@@ -120,34 +133,34 @@ export async function getFvrtsListing(collection, doc1) {
 }
 export async function saveInitialData(collection, userId) {
   await firestore()
-     .collection(collection)
-     .doc(userId)
-     .set({media:[]})
-     .then(function() {
-       // alert("Data saved succesfuly");
-     })
-     .catch(function(error) {
-       alert(error);
-     });
- }
- export async function saveInitialDates(collection, userId) {
+    .collection(collection)
+    .doc(userId)
+    .set({ media: [] })
+    .then(function () {
+      // alert("Data saved succesfuly");
+    })
+    .catch(function (error) {
+      alert(error);
+    });
+}
+export async function saveInitialDates(collection, userId) {
   await firestore()
-     .collection(collection)
-     .doc(userId)
-     .set({dates:[]})
-     .then(function() {
-       // alert("Data saved succesfuly");
-     })
-     .catch(function(error) {
-       alert(error);
-     });
- }
+    .collection(collection)
+    .doc(userId)
+    .set({ dates: [] })
+    .then(function () {
+      // alert("Data saved succesfuly");
+    })
+    .catch(function (error) {
+      alert(error);
+    });
+}
 export async function getAllOptions(collection) {
   console.log(collection)
   let data = [];
   let querySnapshot = await firestore().collection(collection).get();
-    // console.log("QuerySnapshot", querySnapshot)
-  querySnapshot.forEach(function(doc) {
+  // console.log("QuerySnapshot", querySnapshot)
+  querySnapshot.forEach(function (doc) {
     if (doc.exists) {
       //console.log(doc.data());
       data.push(doc.data().pageHeading);
@@ -163,55 +176,55 @@ export async function passwordReset(email) {
 }
 
 export async function saveFvrtsData(collection, doc, jsonObject, cond) {
-  console.log("jsonObject",cond)
-  
-  if (cond == "update" ) {
+  console.log("jsonObject", cond)
+
+  if (cond == "update") {
     console.log("Update")
     console.log(jsonObject)
     await firestore().collection(collection)
       .doc(doc)
       .set({
         media: jsonObject,
-       });
-      // .update({
-      //  media: firestore.FieldValue.arrayUnion(value),
-      // });
+      });
+    // .update({
+    //  media: firestore.FieldValue.arrayUnion(value),
+    // });
   }
-  else{
+  else {
     console.log("Insert")
-    firestore().collection(collection).doc(doc).set({media:firestore.FieldValue.arrayUnion(jsonObject)}, { merge: true })
-    .then(function () {
-      async () => {
-        console.log('Document successfully written!');
-        return true;
-      };
-    })
+    firestore().collection(collection).doc(doc).set({ media: firestore.FieldValue.arrayUnion(jsonObject) }, { merge: true })
+      .then(function () {
+        async () => {
+          console.log('Document successfully written!');
+          return true;
+        };
+      })
   }
-  }
-
-  
-export async function addToArray(collection, doc,value) {
-  // console.log(collection,doc,array,value)
-      await firestore().collection(collection)
-      .doc(doc)
-      .update({
-        media: firestore.FieldValue.arrayUnion(value),
-      });
 }
-export async function removeToArray(collection, doc,value) {
-  
+
+
+export async function addToArray(collection, doc, value) {
+  // console.log(collection,doc,array,value)
   await firestore().collection(collection)
-      .doc(doc)
-      .update({
-        media: firestore.FieldValue.arrayRemove(value),
-      });
+    .doc(doc)
+    .update({
+      media: firestore.FieldValue.arrayUnion(value),
+    });
+}
+export async function removeToArray(collection, doc, value) {
+
+  await firestore().collection(collection)
+    .doc(doc)
+    .update({
+      media: firestore.FieldValue.arrayRemove(value),
+    });
 }
 export async function saveFav(collection, doc, jsonObject) {
-  await firestore().collection(collection).doc(doc).set({media: jsonObject})
+  await firestore().collection(collection).doc(doc).set({ media: jsonObject })
     .then(function () {
       async () => {
-      console.log("Document successfully written!");
-      return true;
+        console.log("Document successfully written!");
+        return true;
       };
     })
     .catch(function (error) {

@@ -67,6 +67,7 @@ const CompleteProfile = (props) => {
                         fullName: name,
                         // Region: items,
                         Terms: toggleCheckBox,
+                        userBlocked:false
                         // isPrivate: dat?.isEnabled,
                     };
 
