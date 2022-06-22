@@ -92,6 +92,21 @@ export async function getAllOfCollection(collection) {
   // dispatch(setCover(data))
 }
 
+export async function getArticlesFunc(collection) {
+
+  let data = [];
+  let querySnapshot = await firestore().collection(collection).get();
+  querySnapshot.forEach(function (doc) {
+    if (doc.exists) {
+      data.push(doc.data());
+      // data = doc.data()
+    } else {
+      console.log('No document found!');
+    }
+  });
+  return data;
+}
+
 // export async function getArticles(collection, doc1) {
 //   let list = []
 //   const querySnapshot = await getDocs(collection(db, "articles"))

@@ -27,34 +27,51 @@ const TextData = "Lorem Ipsum is simply dummy text of the printing and typesetti
 const FeedScreen = (props) => {
     
     const items = props?.route?.params?.item;
-    console.log("item", items?.mainMedia?.thumbnail?.url)
+    // console.log("item", items?.mainMedia?.thumbnail?.url)
 
     return (
         <View style={styles.container}>
-            <Header midtitleCenter title={items?.categoryLabel}
+            <Header 
+                midtitleCenter 
+                // title={items?.categoryLabel}
+                title={"Articles"}
                 left LeftImage ImageName={iconPath.backIcon}
                 leftImageWidth={wp(4)} leftImageHeight={wp(4)}
                 leftPress={() => props.navigation.goBack()}
             />
             <ScrollView style={{}}>
-                <Image source={{uri : items?.mainMedia?.thumbnail?.url}} style={{ width: wp(100), height: wp(55) }} />
+                <Image
+                // source={{uri : items?.mainMedia?.thumbnail?.url}} 
+                source={{uri : items?.image}} 
+                style={{ width: wp(100), height: wp(55) }} />
                 <View style={{ paddingHorizontal: wp(6), paddingBottom: wp(10) }}>
-                    <ResponsiveText size={"h6"} fontFamily={fonts.Montserrat_Bold} margin={[10, 0, 0, 0]}>
-                        {items?.title}</ResponsiveText>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: wp(2) }}>
+                    <ResponsiveText size={"h6"} fontFamily={fonts.Montserrat_Bold}
+                     margin={[10, 0, 0, 0]}>
+                        {/* {items?.title} */}
+                        {items?.heading}
+                        </ResponsiveText>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", 
+                    marginTop: wp(2) }}>
                         <ResponsiveText size={"h9"} color={"#878484"} margin={[0, 0, 0, 0]}>
-                        {items?.authors[0]?.name ? "by " + items?.authors[0]?.name : null}</ResponsiveText>
+                        {/* {items?.authors[0]?.name ? "by " + items?.authors[0]?.name : null} */}
+                        {items?.author ? "by " + items?.author : null}
+                        
+                        </ResponsiveText>
                         <ResponsiveText size={"h9"} color={"#878484"} margin={[0, 0, 0, 0]}>
-                        {moment(items?.createdAt).fromNow()}</ResponsiveText>
+                        {/* {moment(items?.createdAt).fromNow()} */}
+                        {items?.createdAt}
+                        </ResponsiveText>
                     </View>
-                    <View style={{ height: 1, backgroundColor: "#DADADA", width: "100%", marginVertical: wp(2) }} />
+                    <View style={{ height: 1, backgroundColor: "#DADADA", width: "100%",
+                     marginVertical: wp(2) }} />
 
-                    {/* <ResponsiveText size={"h15"} fontFamily={fonts.Montserrat_Bold} margin={[0, 0, 0, 0]}>
+                    {/* <ResponsiveText size={"h15"} fontFamily={fonts.Montserrat_Bold} 
+                    margin={[0, 0, 0, 0]}>
                         {"What is Lorem Ipsum?"}</ResponsiveText>
                          */}
 
                     <ResponsiveText size={"h10"} textAlign={'justify'} margin={[15, 0, 0, 0]}>
-                        {items?.subTitle}
+                        {items?.discription}
                     </ResponsiveText>
 
 

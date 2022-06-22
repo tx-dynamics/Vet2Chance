@@ -17,7 +17,7 @@ import {
     collection,
     getFirestore
   } from "@react-native-firebase/firestore";
-import { getAllOfCollection } from '../../firebase/utility';
+import { getAllOfCollection, getArticlesFunc } from '../../firebase/utility';
 import firestore from '@react-native-firebase/firestore';
 
 // const filterData = [
@@ -40,21 +40,18 @@ const FeedScreen = (props) => {
     // const db = getFirestore();
 
     const getArticles = async() => {
-            const snapshot = await firestore().collection('articles').get()
-            return snapshot?.docs?.map(doc =>
-                 doc?.data(),
-                 console.log("doc",doc?.data())
-                 );
-        
-        // let list = []
-        // const querySnapshot = await getAllOfCollection("articles")
-        // console.log("query", querySnapshot)
-        // querySnapshot.forEach((doc) => {
-        //   let data = doc?.data()
-          
-        //   console.log("list", data)
-        // });
-        // return list
+        let list = []
+        const querySnapshot = await getArticlesFunc("articles")
+        console.log("query", querySnapshot)
+        querySnapshot.forEach((doc) => {
+            console.log("doc", doc)
+              let data = doc;
+              data['id'] = doc.id
+              list.push(data)
+            //   console.log("list", list)
+              setNewsData(list)
+            });
+            return list
     }
 
     const getNews = async () => {
@@ -85,8 +82,8 @@ const FeedScreen = (props) => {
     }
     
     useEffect(() => {
-        getNews()
-        // getArticles()
+        // getNews()
+        getArticles()
     },[])
 
     if (isLoading === true) {
@@ -103,18 +100,21 @@ const FeedScreen = (props) => {
             />
             <FlatList
                 data={newsData}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item, index) => index}
                 renderItem={({ item }) => (
                     <Pressable onPress={() => props.navigation.navigate("FeedDetails", {item:item})}>
                         <View style={{ height: 267, width: "95%", margin: 10,}} >
                             <ImageBackground
-                                source={{uri : item?.mainMedia?.thumbnail?.url}} style={{ height: "100%", width: "100%", 
+                                // source={{uri : item?.mainMedia?.thumbnail?.url}} 
+                                source={{uri : item?.image}} 
+                                style={{ height: "100%", width: "100%", 
                                 alignSelf: "center", }} imageStyle={{borderRadius:10}}>
                                 <View style={{ position: "absolute", bottom: 10, width: "90%",
                                 marginStart: 20 }}>
-                                    <ResponsiveText size={"h6"} color={"white"} fontFamily={fonts.Montserrat_Bold}
+                                    <ResponsiveText size={"h6"} color={"white"} 
+                                    fontFamily={fonts.Montserrat_Bold}
                                      margin={[10, 0, 0, 0]}>
-                                    {item?.title}
+                                    {item?.heading}
                                     {/* {console.log(item?.mainMedia?.gallery?.url)} */}
                                      </ResponsiveText>
                                 </View>
